@@ -7,6 +7,7 @@ import { calcularImpuestos } from "./ejercicio6.js";
 import { validarContrasena } from "./ejercicio7.js";
 import { calcularEstadisticas } from "./ejercicio8.js";
 import { calcularNomina } from "./ejercicio9.js";
+import { convertirMoneda } from "./ejercicio10.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -22,7 +23,7 @@ function ejecutarMenu() {
     menuPrincipal += "7. Validador de Contraseñas\n";
     menuPrincipal += "8. Estadísticas de Puntaje\n";
     menuPrincipal += "9. Nómina con Recargos\n";
-    menuPrincipal += "10. Ejercicio 10\n";
+    menuPrincipal += "10. Conversor de Monedas\n";
     menuPrincipal += "11. Ejercicio 11\n";
     menuPrincipal += "12. Ejercicio 12\n";
     menuPrincipal += "13. Ejercicio 13\n";
@@ -155,7 +156,7 @@ function ejecutarMenu() {
             const salarioTotal = calcularNomina(horasInput, valorInput);
             
 
-            let mensaje = `👷 Cálculo de Nómina:\n`;
+            let mensaje = `Cálculo de Nómina:\n`;
             mensaje += `Horas trabajadas: ${horasInput}\n`;
             mensaje += `Valor hora: $${valorInput}\n`;
             mensaje += `--------------------------\n`;
@@ -165,8 +166,28 @@ function ejecutarMenu() {
         } else {
             alert("Por favor ingrese valores numéricos válidos.");
         }
-        break;  
+        break;
+    case "10":
+        const montoDivisa = parseFloat(prompt("Ingrese el monto a convertir:"));
+        const monedaOrigen = prompt("Ingrese moneda origen (COP, USD, EUR):");
+        const monedaDestino = prompt("Ingrese moneda destino (COP, USD, EUR):");
 
+        if (!isNaN(montoDivisa) && monedaOrigen && monedaDestino) {
+            
+
+            const resp = convertirMoneda(montoDivisa, monedaOrigen, monedaDestino);
+
+
+            if (typeof resp === 'string') {
+                alert(resp);
+            } else {
+                alert(`Resultado: ${resp.resultado} ${resp.moneda}\n\nNota: Se han realizado ${resp.conversionesRealizadas} conversiones en esta sesión.`);
+            }
+
+        } else {
+            alert("Datos inválidos.");
+        }
+        break;
       default:
         alert("Opción no válida");
         break;
