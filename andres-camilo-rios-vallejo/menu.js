@@ -2,6 +2,7 @@ import { cajeroDenominaciones } from './ejercicio1.js'
 import { ajusteDePrecios } from './ejercicio2.js'
 import { verificarBeca } from './ejercicio3.js'
 import { calcularTotalCarrito } from './ejercicio4.js'
+import { controlAsistencia } from './ejercicio5.js'
 
 function ejecutarMenu() {
 
@@ -13,6 +14,7 @@ function ejecutarMenu() {
         menu += "2. Ajustar precios de productos según stock\n";
         menu += "3. Sistema de Becas\n";
         menu += "4. Carrito con Descuento (Electrónica)\n";
+        menu += "5. Control de Asistencia\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -60,6 +62,13 @@ function ejecutarMenu() {
                 ]
                 const total = calcularTotalCarrito(carrito)
                 alert("TOTAL CARRITO: " + total)
+                break
+
+            case '5':
+                
+                const llegadas = ["08:05", "07:20", "07:30", "07:50", "08:16"]
+                const resultado5 = controlAsistencia(llegadas)
+                alert("RESULTADO ASISTENCIA: " + resultado5)
                 break
 
             case '0':
