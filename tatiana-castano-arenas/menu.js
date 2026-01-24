@@ -6,6 +6,7 @@ import { calcularAsistenciaEmpleado } from "./ejercicio5.js";
 import { calcularImpuestosVentas } from "./ejercicio6.js";
 import { validarPassword } from "./ejercicio7.js";
 import { calcularEstadisticas } from "./ejercicio8.js";
+import { calcularNomina } from "./ejercicio9.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -112,6 +113,16 @@ function ejecutarOpcion(opcion) {
                 }
             }
             break;
+        case "9":
+            const horas = Number(prompt("Ingrese total de horas trabajadas:"));
+            const valor = Number(prompt("Ingrese el valor de la hora normal:"));
+            if (!isNaN(horas) && !isNaN(valor)) {
+                const salario = calcularNomina(horas, valor);
+                alert(`El salario total neto con recargos es: $${salario}`);
+            } else {
+                alert("Datos ingresados no válidos.");
+            }
+            break;
         case "0":
             return false;
         default:
@@ -134,6 +145,7 @@ function iniciarPrograma() {
             "6. Impuestos de Ventas\n" +
             "7. Validador de Contraseñas\n" +
             "8. Estadísticas de Puntaje\n" +
+            "9. Nómina con Recargos\n" +
             "0. Salir\n\n" +
             "Seleccione una opción:"
         );
