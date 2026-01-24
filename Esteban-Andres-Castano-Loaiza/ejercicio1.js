@@ -12,5 +12,5 @@ const cajero = monto => {
 
   return { billetes50000, billetes20000, billetes10000 }
 }
-
+console.log(cajero(50000));
 export { cajero }
