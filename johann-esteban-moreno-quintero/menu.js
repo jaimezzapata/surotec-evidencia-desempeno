@@ -2,6 +2,7 @@ import { calcularDenominacionesBilletes } from './ejercicio1.js';
 import { actualizarPreciosInventario } from './ejercicio2.js';
 import { evaluarBeca } from './ejercicio3.js';
 import { calcularTotalCarrito, carritoPrueba } from './ejercicio4.js';
+import { evaluarAsistencia, asistenciasPrueba1, asistenciasPrueba2 } from './ejercicio5.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -13,6 +14,7 @@ function menuPrincipal() {
             "2. Actualizar precios\n" +
             "3. Sistema de Becas\n" +
             "4. Descuento por categoría en carrito de compras\n" +
+            "5. Evaluar asistencia - establecer multa\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -83,6 +85,21 @@ function menuPrincipal() {
                 );
 
                 console.table(carritoPrueba);
+                break;
+
+            case '5':
+                const res1 = evaluarAsistencia(asistenciasPrueba1);
+                const res2 = evaluarAsistencia(asistenciasPrueba2);
+
+                alert(
+                    `--- REPORTE DE ASISTENCIA ---\n\n` +
+                    `Escenario 1 (Retardos leves):\n` +
+                    `Registros: ${asistenciasPrueba1.join(' | ')}\n` +
+                    `Resultado: ${res1}\n\n` +
+                    `Escenario 2 (Retardos críticos):\n` +
+                    `Registros: ${asistenciasPrueba2.join(' | ')}\n` +
+                    `Resultado: ${res2}`
+                );
                 break;
         }
     }
