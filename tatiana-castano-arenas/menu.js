@@ -3,6 +3,7 @@ import { aplicarLogicaPrecio } from "./ejercicio2.js";
 import { evaluarBeca } from "./ejercicio3.js";
 import { calcularTotalCarrito } from "./ejercicio4.js";
 import { calcularAsistenciaEmpleado } from "./ejercicio5.js";
+import { calcularImpuestosVentas } from "./ejercicio6.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -13,8 +14,6 @@ const inventario = [
 const catalogo = [
     { nombre: "Laptop", categoria: "Electronica", precio: 1000 },
     { nombre: "Celular", categoria: "Electronica", precio: 500 },
-    { nombre: "Tablet", categoria: "Electronica", precio: 300 },
-    { nombre: "Audifonos", categoria: "Electronica", precio: 100 },
     { nombre: "Silla", categoria: "Muebles", precio: 150 }
 ];
 
@@ -24,8 +23,8 @@ let carritoActual = [];
 function ejecutarOpcion(opcion) {
     switch (opcion) {
         case "1":
-            const monto = prompt("Cajero: Ingrese monto a retirar:");
-            if (monto) alert(JSON.stringify(ejercicio1(Number(monto)), null, 2));
+            const montoCajero = prompt("Cajero: Ingrese monto:");
+            if (montoCajero) alert(JSON.stringify(ejercicio1(Number(montoCajero)), null, 2));
             break;
         case "2":
             let listaInv = inventario.map((p, i) => `${i}. ${p.nombre} (Stock: ${p.stock})`).join("\n");
@@ -51,7 +50,7 @@ function ejecutarOpcion(opcion) {
                 let eleccion = prompt("Añadir al carrito o 'F' para finalizar:\n" + listaCat);
                 if (eleccion?.toUpperCase() === "F") {
                     const resumen = calcularTotalCarrito(carritoActual);
-                    alert("Total: $" + resumen.totalGeneral + "\n¿Descuento?: " + (resumen.descuentoAplicado ? "SÍ" : "NO"));
+                    alert("Total: $" + resumen.totalGeneral);
                     carritoActual = [];
                     comprando = false;
                 } else if (catalogo[eleccion]) {
@@ -64,21 +63,33 @@ function ejecutarOpcion(opcion) {
             while (gestionando) {
                 let nombre = prompt("Ingrese nombre del trabajador o 'P' para ver reportes:");
                 if (nombre?.toUpperCase() === "P") {
-                    let reporteFinal = "REPORTES DE ASISTENCIA:\n";
+                    let reporteFinal = "";
                     for (let emp in baseDatosAsistencia) {
                         reporteFinal += calcularAsistenciaEmpleado(emp, baseDatosAsistencia[emp]) + "\n";
                     }
-                    alert(reporteFinal);
+                    alert(reporteFinal || "Sin registros.");
                     gestionando = false;
                 } else if (nombre) {
-                    let hora = prompt(`Hora de llegada para ${nombre} (HH:MM):`);
+                    let hora = prompt(`Hora para ${nombre} (HH:MM):`);
                     if (/^\d{2}:\d{2}$/.test(hora)) {
                         if (!baseDatosAsistencia[nombre]) baseDatosAsistencia[nombre] = [];
                         baseDatosAsistencia[nombre].push(hora);
-                        alert(`Registro exitoso para ${nombre}`);
-                    } else {
-                        alert("Formato de hora inválido.");
                     }
+                }
+            }
+            break;
+        case "6":
+            let listaVentas = [];
+            let ingresandoVentas = true;
+            while (ingresandoVentas) {
+                let venta = prompt("Ingrese monto de venta bruta o 'C' para calcular impuestos:");
+                if (venta?.toUpperCase() === "C") {
+                    const totalImpuestos = calcularImpuestosVentas(listaVentas);
+                    alert(`Total Impuestos a pagar (IVA + Retenciones): $${totalImpuestos}`);
+                    ingresandoVentas = false;
+                } else if (!isNaN(venta) && venta > 0) {
+                    listaVentas.push(Number(venta));
+                    alert("Venta registrada.");
                 }
             }
             break;
@@ -95,13 +106,7 @@ function iniciarPrograma() {
     let continuar = true;
     while (continuar) {
         const seleccion = prompt(
-            "MENÚ EVALUACIÓN\n" +
-            "1. Cajero\n" +
-            "2. Inventario\n" +
-            "3. Becas\n" +
-            "4. Carrito\n" +
-            "5. Asistencia\n" +
-            "0. Salir"
+            "MENÚ EVALUACIÓN\n1. Cajero\n2. Inventario\n3. Becas\n4. Carrito\n5. Asistencia\n6. Impuestos\n0. Salir"
         );
         continuar = (seleccion === "0" || seleccion === null) ? false : ejecutarOpcion(seleccion);
     }
