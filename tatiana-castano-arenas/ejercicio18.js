@@ -1,5 +1,5 @@
 export function validarPrestamoBiblioteca(prestamos, multaMaxima = 10000, diasMaximoRetraso = 10) {
-    const hoy = new Date("2024-05-20"); // Fecha de referencia simulada para la prueba
+    const hoy = new Date("2024-05-20"); 
     let multaTotal = 0;
     let tieneRetrasoGrave = false;
 

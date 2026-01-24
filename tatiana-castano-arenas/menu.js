@@ -16,6 +16,7 @@ import { filtrarTareasUrgentes } from "./ejercicio15.js";
 import { calcularLiquidacionAgua } from "./ejercicio16.js";
 import { monitorearTransacciones } from "./ejercicio17.js";
 import { validarPrestamoBiblioteca } from "./ejercicio18.js";
+import { calcularRutaEntrega } from "./ejercicio19.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -39,12 +40,12 @@ function ejecutarOpcion(opcion) {
             if (montoC) alert(JSON.stringify(ejercicio1(Number(montoC)), null, 2));
             break;
         case "2":
-            let listaI = inventario.map((p, i) => `${i}. ${p.nombre} (${p.stock})`).join("\n");
-            const idxI = prompt("Venta:\n" + listaI);
+            let listaI = inventario.map((p, i) => `${i}. ${p.nombre} (Stock: ${p.stock})`).join("\n");
+            const idxI = prompt("Seleccione producto para vender:\n" + listaI);
             if (inventario[idxI] && inventario[idxI].stock > 0) {
                 inventario[idxI].stock -= 1;
                 inventario[idxI] = aplicarLogicaPrecio(inventario[idxI]);
-                alert("Actualizado: " + JSON.stringify(inventario[idxI], null, 2));
+                alert("Estado: " + JSON.stringify(inventario[idxI], null, 2));
             }
             break;
         case "3":
@@ -55,132 +56,139 @@ function ejecutarOpcion(opcion) {
             let shop = true;
             while (shop) {
                 let lC = catalogo.map((p, i) => `${i}. ${p.nombre} ($${p.precio})`).join("\n");
-                let sel = prompt("Carrito (F para finalizar):\n" + lC);
+                let sel = prompt("Añadir al carrito o 'F' para finalizar:\n" + lC);
                 if (sel?.toUpperCase() === "F") {
-                    const res = calcularTotalCarrito(carritoActual);
-                    alert(`Total: $${res.totalGeneral}`);
-                    carritoActual = []; shop = false;
-                } else if (catalogo[sel]) carritoActual.push(catalogo[sel]);
+                    const resumen = calcularTotalCarrito(carritoActual);
+                    alert("Total Carrito: $" + resumen.totalGeneral);
+                    carritoActual = [];
+                    shop = false;
+                } else if (catalogo[sel]) {
+                    carritoActual.push(catalogo[sel]);
+                }
             }
             break;
         case "5":
-            let nom = prompt("Nombre trabajador:");
-            if (nom) {
-                let hor = prompt("Hora (HH:MM):");
-                if (!baseDatosAsistencia[nom]) baseDatosAsistencia[nom] = [];
-                baseDatosAsistencia[nom].push(hor);
-                alert(calcularAsistenciaEmpleado(nom, baseDatosAsistencia[nom]));
+            let nombreE = prompt("Nombre del trabajador:");
+            if (nombreE) {
+                let horaL = prompt(`Hora de llegada para ${nombreE} (HH:MM):`);
+                if (!baseDatosAsistencia[nombreE]) baseDatosAsistencia[nombreE] = [];
+                baseDatosAsistencia[nombreE].push(horaL);
+                alert(calcularAsistenciaEmpleado(nombreE, baseDatosAsistencia[nombreE]));
             }
             break;
         case "6":
-            const vts = prompt("Ventas (coma):").split(",").map(Number);
-            alert("Impuestos: $" + calcularImpuestosVentas(vts));
+            const vts = prompt("Ventas brutas (separadas por coma):").split(",").map(Number);
+            alert("Total Impuestos: $" + calcularImpuestosVentas(vts));
             break;
         case "7":
-            alert("Requisitos: 8+ carac, 1 num, 1 especial.");
-            const pw = prompt("Pass:");
+            const pw = prompt("Ingrese contraseña para validar:");
             alert("Resultado: " + validarPassword(pw));
             break;
         case "8":
-            const pts = prompt("Puntajes (coma):").split(",").map(Number);
+            const pts = prompt("Puntajes (separados por coma):").split(",").map(Number);
             const res8 = calcularEstadisticas(pts);
-            alert(typeof res8 === "string" ? res8 : `Promedio: ${res8.promedioRestante}`);
+            alert(typeof res8 === "string" ? res8 : `Promedio Final: ${res8.promedioRestante}`);
             break;
         case "9":
-            alert("Salario: $" + calcularNomina(Number(prompt("Horas:")), Number(prompt("Valor:"))));
+            const h = Number(prompt("Horas trabajadas:"));
+            const v = Number(prompt("Valor hora:"));
+            alert(`Nómina Total: $${calcularNomina(h, v)}`);
             break;
         case "10":
-            const mon = Number(prompt("Monto:"));
-            const res10 = convertirMoneda(mon, "USD", "COP");
-            alert(`Total: ${res10.resultado} COP (Consultas: ${res10.totalConsultas})`);
+            const conv = convertirMoneda(Number(prompt("Monto:")), "USD", "COP");
+            alert(`Equivalente: ${conv.resultado} COP (Consultas: ${conv.totalConsultas})`);
             break;
         case "11":
-            const cap = Number(prompt("Capacidad:"));
-            const grs = prompt("Grupos (coma):").split(",").map(Number);
-            alert("Fuera: " + calcularEstudiantesFuera(cap, grs));
+            const capAula = Number(prompt("Capacidad del aula:"));
+            const gruposEst = prompt("Tamaños de grupos (coma):").split(",").map(Number);
+            alert(`Estudiantes sin cupo: ${calcularEstudiantesFuera(capAula, gruposEst)}`);
             break;
         case "12":
-            const txtP = "Este es un mensaje de SPAM. La oferta de SPAM es limitada.";
-            const res12 = analizarPalabrasProhibidas(txtP, ["spam", "oferta"]);
-            alert(`Análisis:\nTEXTO: "${txtP}"\nRESULTADO: ${JSON.stringify(res12, null, 2)}`);
+            const textoHard = "Este es un SPAM. La oferta de SPAM es limitada, aprovecha la oferta.";
+            const res12 = analizarPalabrasProhibidas(textoHard, ["spam", "oferta"]);
+            alert(`Análisis de Texto:\n"${textoHard}"\n\nConteo: ${JSON.stringify(res12, null, 2)}`);
             break;
         case "13":
-            const entradaTemp = prompt("Temperaturas (ej: 32,36,37,38,30):");
-            if (entradaTemp) {
-                const arrTemp = entradaTemp.split(",").map(Number);
-                alert("Estado: " + monitorearSensores(arrTemp));
-            }
+            const tempEntrada = prompt("Historial temperaturas (coma):").split(",").map(Number);
+            alert("Monitoreo Sensores: " + monitorearSensores(tempEntrada));
             break;
         case "14":
             const cP = { compras: [120000, 95000, 150000, 80000, 110000], años: 3 };
             const cN = { compras: [50000, 40000, 30000, 60000, 20000], años: 1 };
-            alert(`CLIENTE 1 (3 años): ${calcularDescuentoLealtad(cP.compras, cP.años)}\nCLIENTE 2 (1 año): ${calcularDescuentoLealtad(cN.compras, cN.años)}`);
+            alert(`Premium (3 años): ${calcularDescuentoLealtad(cP.compras, cP.años)}\nNuevo (1 año): ${calcularDescuentoLealtad(cN.compras, cN.años)}`);
             break;
         case "15":
-            const listaT = [{ descripcion: "Bug login", prioridad: "alta", dias: 1 }, { descripcion: "Producción", prioridad: "alta", dias: 0 }];
-            alert("TAREAS URGENTES:\n" + JSON.stringify(filtrarTareasUrgentes(listaT), null, 2));
+            const listaTareas = [
+                { descripcion: "Corregir bug login", prioridad: "alta", dias: 1 },
+                { descripcion: "Revisar correo", prioridad: "baja", dias: 0 },
+                { descripcion: "Subir a producción", prioridad: "alta", dias: 0 }
+            ];
+            const urgentes = filtrarTareasUrgentes(listaTareas);
+            alert("Tareas de Alta Prioridad (<2 días):\n" + JSON.stringify(urgentes, null, 2));
             break;
         case "16":
-            alert(`Liquidación Agua (35m3, Est 1): $${calcularLiquidacionAgua(35, 1)}`);
+            const liq = calcularLiquidacionAgua(35, 1);
+            alert(`Liquidación Agua (35m3, Estrato 1): $${liq}`);
             break;
         case "17":
-            const hTrans = [50000, 60000, 45000, 55000, 800000, 52000];
-            alert("SOSPECHOSAS:\n" + JSON.stringify(monitorearTransacciones(hTrans).filter(t => t.estado === "Sospechosa"), null, 2));
+            const hVentas = [50000, 55000, 45000, 800000, 52000];
+            const sospechosas = monitorearTransacciones(hVentas).filter(t => t.estado === "Sospechosa");
+            alert("Transacciones Sospechosas detectadas:\n" + JSON.stringify(sospechosas, null, 2));
             break;
         case "18":
-    // Datos de prueba (Hardcoded)
-    const usuariosBiblioteca = [
-        { nombre: "Ana Gómez", prestamos: [{ fechaDevolucion: "2024-05-15", multa: 12000 }] },
-        { nombre: "Luis Pérez", prestamos: [{ fechaDevolucion: "2024-05-01", multa: 2000 }] },
-        { nombre: "Carla Ruiz", prestamos: [{ fechaDevolucion: "2024-05-19", multa: 0 }] },
-        { nombre: "Juan Mora", prestamos: [{ fechaDevolucion: "2024-05-10", multa: 5000 }] }
+            const prestamosU = [{ fechaDevolucion: "2024-05-01", multa: 2000 }];
+            alert("Resultado Biblioteca: " + validarPrestamoBiblioteca(prestamosU).motivo);
+            break;
+        case "19":
+    const rutaPlaneada = [
+        { nombre: "Bodega A", distancia: 40 },
+        { nombre: "Punto B", distancia: 60 },
+        { nombre: "Cliente C", distancia: 80 },
+        { nombre: "Sede D", distancia: 30 }, 
+        { nombre: "Punto E", distancia: 50 }
     ];
 
-    let reporteBiblioteca = "ESTADO DE USUARIOS - BIBLIOTECA\n";
-    reporteBiblioteca += "---------------------------------------\n";
+    const { destinosAlcanzables, totalRecorrido } = calcularRutaEntrega(rutaPlaneada);
 
-    usuariosBiblioteca.forEach(u => {
-        
-        const multaTotal = u.prestamos.reduce((acc, p) => acc + p.multa, 0);
-        const validacion = validarPrestamoBiblioteca(u.prestamos);
-        
-        reporteBiblioteca += ` ${u.nombre}\n`;
-        reporteBiblioteca += `   Multa acumulada: $${multaTotal}\n`;
-        reporteBiblioteca += `   Estado: ${validacion.concedido ? "Apto" : "No Apto"}\n\n`;
-    });
+    let reporte = "PLANIFICACIÓN DE RUTA (Límite 200km)\n";
+    reporte += "=======================================\n";
+    reporte += "RUTA ORIGINAL PROGRAMADA:\n";
+    rutaPlaneada.forEach(d => reporte += ` ${d.nombre}: ${d.distancia} km\n`);
 
-
-    const conMultas = usuariosBiblioteca.filter(u => 
-        u.prestamos.some(p => p.multa > 0)
-    );
-
-    reporteBiblioteca += "---------------------------------------\n";
-    reporteBiblioteca += "USUARIOS CON MULTAS PENDIENTES:\n";
-    reporteBiblioteca += "---------------------------------------\n";
-
-    if (conMultas.length > 0) {
-        conMultas.forEach(u => {
-            const deuda = u.prestamos.reduce((acc, p) => acc + p.multa, 0);
-            reporteBiblioteca += ` ${u.nombre}: Debe $${deuda}\n`;
+    reporte += "\n=======================================\n";
+    reporte += "DESTINOS QUE PUEDE VISITAR:\n";
+    
+    if (destinosAlcanzables.length > 0) {
+        destinosAlcanzables.forEach((d, i) => {
+            reporte += `${i + 1}. ${d.nombre} (${d.distancia} km) - Acumulado: ${d.acumulado} km\n`;
         });
+        reporte += `\nKilómetros totales recorridos: ${totalRecorrido} km\n`;
+        reporte += `Combustible sobrante: ${200 - totalRecorrido} km`;
     } else {
-        reporteBiblioteca += "No hay usuarios con deudas registradas.";
+        reporte += "El vehículo no tiene combustible suficiente para el primer destino.";
     }
 
-    alert(reporteBiblioteca);
+    alert(reporte);
     break;
     }
     return true;
 }
 
 function iniciarPrograma() {
-    let loop = true;
-    while (loop) {
-        const sel = prompt(
-            "--- EVALUACIÓN JAVASCRIPT ---\n" +
-            "1-10. Ejercicios Base\n11. Aula\n12. Palabras\n13. Sensores\n14. Lealtad\n15. Tareas\n16. Agua\n17. Transacciones\n18. Biblioteca\n0. Salir"
+    let continuar = true;
+    while (continuar) {
+        const seleccion = prompt(
+            "--- EVALUACIÓN JAVASCRIPT CONSOLIDADA ---\n" +
+            "1. Cajero | 2. Inventario | 3. Becas\n" +
+            "4. Carrito | 5. Asistencia | 6. Impuestos\n" +
+            "7. Passwords | 8. Estadísticas | 9. Nómina\n" +
+            "10. Moneda | 11. Aula | 12. Palabras\n" +
+            "13. Sensores | 14. Lealtad | 15. Tareas\n" +
+            "16. Agua | 17. Transacciones | 18. Biblioteca\n" +
+            "19. Ruta de Entrega\n" +
+            "0. Salir"
         );
-        loop = (sel === "0" || sel === null) ? false : ejecutarOpcion(sel);
+        continuar = (seleccion === "0" || seleccion === null) ? false : ejecutarOpcion(seleccion);
     }
 }
 

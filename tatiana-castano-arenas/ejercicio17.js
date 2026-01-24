@@ -4,7 +4,7 @@ export function monitorearTransacciones(transacciones) {
 
     transacciones.forEach((monto, index) => {
         if (index === 0) {
-            // La primera transacción no tiene anteriores para comparar
+           
             resultados.push({ monto, estado: "Normal" });
             sumaAnterior += monto;
         } else {
