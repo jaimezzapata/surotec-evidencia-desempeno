@@ -1,5 +1,6 @@
 import { calcularDenominacionesBilletes } from './ejercicio1.js';
 import { actualizarPreciosInventario } from './ejercicio2.js';
+import { evaluarBeca } from './ejercicio3.js'; 
 
 function menuPrincipal() {
     let continuar = true;
@@ -9,6 +10,7 @@ function menuPrincipal() {
             "--- TALLER DE LÓGICA DE PROGRAMACIÓN ---\n" +
             "1. Cajero de Denominaciones\n" +
             "2. Actualizar precios\n" +
+            "3. Sistema de Becas\n" + 
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -27,34 +29,44 @@ function menuPrincipal() {
                     alert("Resultado:\n" + JSON.stringify(resultado1, null, 2));
                 }
                 break;
-           
 
             case '2':
-
                 let nombre = prompt("Ingrese el nombre del producto:", "Laptop");
                 let stock = parseInt(prompt(`Ingrese el stock para ${nombre}:`, "3"));
                 let precio = parseFloat(prompt(`Ingrese el precio para ${nombre}:`, "1000000"));
 
                 const productosUsuario = [{ nombre, stock, precio }];
-
-                console.log("Datos originales:", productosUsuario);
-
                 const resultado2 = actualizarPreciosInventario(productosUsuario);
 
                 alert(
                     `Resultado para ${nombre}:\n` +
-                    `Stock: ${stock}\n` +
-                    `Precio Original: ${precio}\n` +
                     `Precio Final (ajustado): ${resultado2[0].precio}`
                 );
-
                 console.table(resultado2);
                 break;
-                default: alert("Opción no válida.");
+
+            case '3': 
+                let p_promedio = parseFloat(prompt("Ingrese el promedio del estudiante (0.0 - 5.0):"));
+                let p_edad = parseInt(prompt("Ingrese la edad del estudiante:"));
+                let p_estrato = parseInt(prompt("Ingrese el estrato (1 - 6):"));
+
+                const estudiante = { promedio: p_promedio, edad: p_edad, estrato: p_estrato };
+                const esBeneficiario = evaluarBeca(estudiante);
+
+                alert(
+                    `--- RESULTADO DE BECA ---\n` +
+                    `Estudiante: ${esBeneficiario ? "APROBADO" : "NO APROBADO"}\n\n` +
+                    `Condiciones evaluadas:\n` +
+                    `- Promedio: ${p_promedio}\n` +
+                    `- Edad: ${p_edad}\n` +
+                    `- Estrato: ${p_estrato}`
+                );
+                break;
+
+            default: 
+                alert("Opción no válida.");
                 break;
         }
-
-
     }
 }
 menuPrincipal();
