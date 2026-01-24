@@ -17,7 +17,7 @@ import { ejercicio16 } from "./ejercicio16.js"
 import { ejercicio17 } from "./ejercicio17.js"
 import { ejercicio18 } from "./ejercicio18.js"
 import { ejercicio19 } from "./ejercicio19.js"
-/* import { ejercicio20 } from "./ejercicio20.js" */
+import { ejercicio20 } from "./ejercicio20.js"
 
 function mostrarMenu() {
     return prompt(
@@ -131,7 +131,7 @@ function ejecutarMenu() {
                 alert(JSON.stringify(ejercicio19(), null, 2))
                 break
             case "20":
-                (ejercicio20())
+                alert(ejercicio20().replace(/\n/g, "\n"))
                 break
             case "0":
                 alert("Programa finalizado")
