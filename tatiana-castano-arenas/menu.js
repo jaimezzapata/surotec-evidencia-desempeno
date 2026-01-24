@@ -11,6 +11,7 @@ import { convertirMoneda } from "./ejercicio10.js";
 import { calcularEstudiantesFuera } from "./ejercicio11.js";
 import { analizarPalabrasProhibidas } from "./ejercicio12.js";
 import { monitorearSensores } from "./ejercicio13.js";
+import { calcularDescuentoLealtad } from "./ejercicio14.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -59,7 +60,7 @@ function ejecutarOpcion(opcion) {
             }
             break;
         case "5":
-            let nom = prompt("Nombre:");
+            let nom = prompt("Nombre trabajador:");
             if (nom) {
                 let hor = prompt("Hora (HH:MM):");
                 if (!baseDatosAsistencia[nom]) baseDatosAsistencia[nom] = [];
@@ -68,7 +69,7 @@ function ejecutarOpcion(opcion) {
             }
             break;
         case "6":
-            const vts = prompt("Ventas (separadas por coma):").split(",").map(Number);
+            const vts = prompt("Ventas (coma):").split(",").map(Number);
             alert("Impuestos: $" + calcularImpuestosVentas(vts));
             break;
         case "7":
@@ -77,7 +78,7 @@ function ejecutarOpcion(opcion) {
             alert("Resultado: " + validarPassword(pw));
             break;
         case "8":
-            const pts = prompt("Puntajes (separados por coma):").split(",").map(Number);
+            const pts = prompt("Puntajes (coma):").split(",").map(Number);
             const res8 = calcularEstadisticas(pts);
             alert(typeof res8 === "string" ? res8 : `Promedio: ${res8.promedioRestante}`);
             break;
@@ -99,27 +100,32 @@ function ejecutarOpcion(opcion) {
             const res12 = analizarPalabrasProhibidas(txtP, ["spam", "oferta"]);
             alert(`Análisis:\nTEXTO: "${txtP}"\nRESULTADO: ${JSON.stringify(res12, null, 2)}`);
             break;
-       case "13":
-    const entradaTemp = prompt("Ingrese las temperaturas por hora separadas por coma (ej: 30,36,38,37,32):");
-    
-    if (entradaTemp) {
-    
-        const historialUsuario = entradaTemp.split(",").map(Number);
-        
+        case "13":
+            const entradaTemp = prompt("Temperaturas (coma):");
+            if (entradaTemp) {
+                const arrTemp = entradaTemp.split(",").map(Number);
+                alert("Estado: " + monitorearSensores(arrTemp));
+            }
+          case "14":
+    // Datos de prueba (Hardcoded)
+    const clientePremium = { compras: [120000, 95000, 150000, 80000, 110000], años: 3 };
+    const clienteNuevo = { compras: [50000, 40000, 30000, 60000, 20000], años: 1 };
 
-        if (historialUsuario.some(isNaN)) {
-            alert("Error: Por favor ingrese solo números separados por comas.");
-        } else {
-            const resultadoMonitoreo = monitorearSensores(historialUsuario);
-            
-            alert(
-                "SISTEMA DE MONITOREO DE TEMPERATURA\n" +
-                "---------------------------------------\n" +
-                `Historial ingresado: [${historialUsuario.join(", ")}]\n` +
-                `Estado del sistema: ${resultadoMonitoreo}`
-            );
-        }
-    }
+    const resultadoPremium = calcularDescuentoLealtad(clientePremium.compras, clientePremium.años);
+    const resultadoNuevo = calcularDescuentoLealtad(clienteNuevo.compras, clienteNuevo.años);
+
+    alert(
+        "DETALLES DE CLIENTES Y DESCUENTOS\n" +
+        "---------------------------------------\n" +
+        "CLIENTE 1 (Frecuente):\n" +
+        `• Compras Recientes: $${clientePremium.compras.join(", $")}\n` +
+        `• Antigüedad: ${clientePremium.años} años\n` +
+        `• Estatus: ${resultadoPremium}\n\n` +
+        "CLIENTE 2 (Ocasional):\n" +
+        `• Compras Recientes: $${clienteNuevo.compras.join(", $")}\n` +
+        `• Antigüedad: ${clienteNuevo.años} año\n` +
+        `• Estatus: ${resultadoNuevo}`
+    );
     break;
     }
     return true;
@@ -132,7 +138,7 @@ function iniciarPrograma() {
             "--- MENÚ DE EJERCICIOS ---\n" +
             "1. Cajero\n2. Inventario\n3. Becas\n4. Carrito\n5. Asistencia\n" +
             "6. Impuestos\n7. Passwords\n8. Estadísticas\n9. Nómina\n10. Moneda\n" +
-            "11. Aula\n12. Palabras\n13. Sensores\n0. Salir"
+            "11. Aula\n12. Palabras\n13. Sensores\n14. Lealtad\n0. Salir"
         );
         loop = (sel === "0" || sel === null) ? false : ejecutarOpcion(sel);
     }
