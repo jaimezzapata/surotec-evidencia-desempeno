@@ -7,3 +7,4 @@ import { calcularImpuestos } from "./ejercicio6.js";
 import { validarPassword } from "./ejercicio7.js";
 import { calcularEstadisticas } from "./ejercicio8.js";
 import { calcularNomina } from "./ejercicio9.js";
+import { convertirMoneda } from "./ejercicio10.js";
