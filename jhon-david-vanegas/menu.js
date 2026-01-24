@@ -2,6 +2,8 @@
 const readline = require('readline')
 
 const ejercicio1 = require('./ejercicio1')
+const ejercicio2 = require('./ejercicio2')
+
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -25,6 +27,18 @@ function ejecutarEjercicio(opcion) {
         iniciarMenu()
       })
       return
+    case 2:
+        case 2:
+            const productos = [
+            { nombre: 'Arroz', stock: 3, precio: 4000 },
+            { nombre: 'Leche', stock: 10, precio: 3500 },
+            { nombre: 'Huevos', stock: 25, precio: 10200 }
+           ]
+
+            console.log(ejercicio2(productos))
+            iniciarMenu()
+            return
+
     default:
       console.log('Opcion invalida')
       iniciarMenu()
