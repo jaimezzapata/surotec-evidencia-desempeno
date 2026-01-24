@@ -14,6 +14,7 @@ const conversor = require('./ejercicio10')
 const capacidadAula = require('./ejercicio11')
 const analizarPalabrasProhibidas = require('./ejercicio12')
 const alertaSensores = require('./ejercicio13')
+const descuentoLealtad = require('./ejercicio14')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -152,6 +153,13 @@ function ejecutarEjercicio(opcion) {
     iniciarMenu()
    return
 
+  case 14:
+    const compras = [120000, 130000, 110000, 140000, 150000]
+    const antiguedad = 3
+
+    console.log(descuentoLealtad(compras, antiguedad))
+    iniciarMenu()
+    return
 
 
 
