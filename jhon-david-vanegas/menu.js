@@ -4,6 +4,7 @@ const readline = require('readline')
 const ejercicio1 = require('./ejercicio1')
 const ejercicio2 = require('./ejercicio2')
 const sistemaBecas = require('./ejercicio3')
+const carritoDescuentoCategoria = require('./ejercicio4')
 
 
 const rl = readline.createInterface({
@@ -49,6 +50,20 @@ function ejecutarEjercicio(opcion) {
         console.log(sistemaBecas(estudiante))
         iniciarMenu()
         return
+    
+    case 4:
+       const carrito = [
+       { categoria: 'Electronica', precio: 1000 },
+       { categoria: 'Electronica', precio: 2000 },
+       { categoria: 'Electronica', precio: 1500 },
+       { categoria: 'Electronica', precio: 500 },
+       { categoria: 'Hogar', precio: 800 }
+     ]
+
+       console.log(carritoDescuentoCategoria(carrito))
+       iniciarMenu()
+       return
+
 
 
     
