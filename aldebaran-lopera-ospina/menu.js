@@ -1,6 +1,7 @@
 import { cajeroAuto } from "./ejercicio1.js";
 import { ajustarPrecios } from "./ejercicio2.js";
 import { verificarBeca } from "./ejercicio3.js";
+import { calcularTotalCarrito } from "./ejercicio4.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -10,7 +11,7 @@ function ejecutarMenu() {
     menuPrincipal += "1. Cajero de Denominaciones\n";
     menuPrincipal += "2. Inventario con Precios Dinámicos\n";
     menuPrincipal += "3. Sistema de Becas\n";
-    menuPrincipal += "4. Ejercicio 4\n";
+    menuPrincipal += "4. Carrito con Descuentos\n"
     menuPrincipal += "5. Ejercicio 5\n";
     menuPrincipal += "6. Ejercicio 6\n";
     menuPrincipal += "7. Ejercicio 7\n";
@@ -75,6 +76,22 @@ function ejecutarMenu() {
                 alert("DENEGADO. El estudiante no cumple los requisitos.");
             }
         }
+        break;
+      case "4": // <--- LÓGICA DEL EJERCICIO 4
+        // Datos de prueba: 4 productos de Electrónica (debe activar descuento) y 1 de Ropa
+        const carritoTest = [
+            { nombre: "TV", categoria: "Electronica", precio: 1000 },
+            { nombre: "Radio", categoria: "Electronica", precio: 200 },
+            { nombre: "Celular", categoria: "Electronica", precio: 800 },
+            { nombre: "Cables", categoria: "Electronica", precio: 50 },
+            { nombre: "Camisa", categoria: "Ropa", precio: 100 }
+        ];
+
+        alert("Calculando total para el siguiente carrito:\n" + JSON.stringify(carritoTest, null, 2));
+
+        const totalPagar = calcularTotalCarrito(carritoTest);
+
+        alert(`Total a pagar: $${totalPagar}\n(Se aplicó descuento a Electrónica por tener más de 3 artículos)`);
         break;  
       default:
         alert("Opción no válida");
