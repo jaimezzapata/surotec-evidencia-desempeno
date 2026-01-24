@@ -39,11 +39,14 @@ function iniciarMenu() {
 function ejecutarOpcion(opcion) {
     switch (opcion) {
         case "1":
-            const monto = parseInt(prompt("Ingrese el monto a retirar:"))
+            const inputMonto = prompt("Ingrese el monto a retirar (Ej: 100000):")
+            const monto = parseInt(inputMonto)
+            
             if (!isNaN(monto)) {
-                alert(JSON.stringify(cajeroDenominaciones(monto), null, 2))
+                const resultado = cajeroDenominaciones(monto)
+                alert("Desglose de billetes:\n" + JSON.stringify(resultado, null, 2))
             } else {
-                alert("Monto inválido")
+                alert("Por favor ingrese un número válido.")
             }
             break
 
