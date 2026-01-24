@@ -3,6 +3,7 @@ import { ajusteDePrecios } from './ejercicio2.js'
 import { verificarBeca } from './ejercicio3.js'
 import { calcularTotalCarrito } from './ejercicio4.js'
 import { controlAsistencia } from './ejercicio5.js'
+import { calcularImpuestos } from './ejercicio6.js'
 
 function ejecutarMenu() {
 
@@ -15,6 +16,7 @@ function ejecutarMenu() {
         menu += "3. Sistema de Becas\n";
         menu += "4. Carrito con Descuento (Electrónica)\n";
         menu += "5. Control de Asistencia\n";
+        menu += "6. Impuestos de Ventas\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -69,6 +71,17 @@ function ejecutarMenu() {
                 const llegadas = ["08:05", "07:20", "07:30", "07:50", "08:16"]
                 const resultado5 = controlAsistencia(llegadas)
                 alert("RESULTADO ASISTENCIA: " + resultado5)
+                break
+
+            case '6':
+                const entradaVentas = prompt("Ingrese los montos de ventas separados por coma (ej: 500000,100000)")
+                const arrayStrings = entradaVentas.split(",")
+                const ventas = []
+                for (let i = 0; i < arrayStrings.length; i++) {
+                    ventas.push(Number(arrayStrings[i]))
+                }
+                const totalImpuestos = calcularImpuestos(ventas)
+                alert("TOTAL IMPUESTOS ACUMULADOS: " + totalImpuestos)
                 break
 
             case '0':
