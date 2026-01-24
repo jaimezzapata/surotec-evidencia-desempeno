@@ -8,6 +8,7 @@ import { validarContrasena } from './ejercicio7.js';
 import { estadisticasPuntaje } from './ejercicio8.js';
 import { calcularNomina } from './ejercicio9.js';
 import { convertirDivisas } from './ejercicio10.js';
+import { gestionarAula } from './ejercicio11.js';
 
 function iniciarMenu() {
     let continuar = true;
@@ -24,7 +25,8 @@ function iniciarMenu() {
 7. Contraseñas
 8. Estadísticas
 9. Nómina
-10. Conversor de Divisas
+10. Divisas
+11. Capacidad Aula
 0. Salir
 
 Elige una opción:`);
@@ -87,11 +89,9 @@ Elige una opción:`);
         } else if (opcion === '7') {
             let probando = true;
             while(probando) {
-                let pass = prompt("Contraseña a validar (o cancelar para salir):");
+                let pass = prompt("Contraseña (o cancelar para salir):");
                 if(pass === null) probando = false;
-                else {
-                    alert("Resultado: " + validarContrasena(pass));
-                }
+                else alert("Resultado: " + validarContrasena(pass));
             }
 
         } else if (opcion === '8') {
@@ -125,20 +125,46 @@ Elige una opción:`);
                     let monto = parseFloat(input);
                     let origen = prompt("Origen (COP/USD/EUR):");
                     let destino = prompt("Destino (COP/USD/EUR):");
-
                     if (!isNaN(monto) && origen && destino) {
-                        let or = origen.toUpperCase();
-                        let dest = destino.toUpperCase();
+                        let or = origen.toUpperCase(); let dest = destino.toUpperCase();
                         if (["COP", "USD", "EUR"].includes(or) && ["COP", "USD", "EUR"].includes(dest)) {
                             let res = convertirDivisas(monto, or, dest);
                             alert(`Resultado: ${res.valor} ${dest}\nTotal conversiones: ${res.totalConversiones}`);
                         } else alert("Monedas inválidas.");
-                    } else if (origen !== null && destino !== null) {
-                        alert("Datos inválidos.");
+                    } else if (origen !== null && destino !== null) alert("Datos inválidos.");
+                    else convirtiendo = false;
+                }
+            }
+
+        } else if (opcion === '11') {
+            // --- LÓGICA EJERCICIO 11 ---
+            let capacidad = parseInt(prompt("Ingrese la capacidad MÁXIMA del aula:"));
+            
+            if (!isNaN(capacidad) && capacidad > 0) {
+                let grupos = [];
+                let agregando = true;
+
+                while (agregando) {
+                    let input = prompt(`Capacidad: ${capacidad}\nGrupos en fila: ${grupos.join(", ")}\n\nIngrese tamaño del siguiente grupo (o deje vacío para procesar):`);
+                    
+                    if (input === null || input.trim() === "") {
+                        agregando = false;
                     } else {
-                        convirtiendo = false;
+                        let cantidad = parseInt(input);
+                        if (!isNaN(cantidad) && cantidad > 0) {
+                            grupos.push(cantidad);
+                        } else {
+                            alert("Cantidad inválida.");
+                        }
                     }
                 }
+
+                if (grupos.length > 0) {
+                    let quedadosFuera = gestionarAula(grupos, capacidad);
+                    alert(`--- RESULTADO ---\n\nGrupos: ${grupos.join(", ")}\nCapacidad: ${capacidad}\n\nPersonas que se quedaron fuera: ${quedadosFuera}`);
+                }
+            } else {
+                alert("Capacidad inválida.");
             }
         }
     }
