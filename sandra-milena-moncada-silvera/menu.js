@@ -1,0 +1,1 @@
+import { calcularMonto } from "./ejercicio1.js";
