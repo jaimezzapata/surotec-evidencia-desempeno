@@ -1,6 +1,7 @@
 import { ejercicio1 } from "./ejercicio1.js"
 import { ejercicio2 } from "./ejercicio2.js"
 import { ejercicio3 } from "./ejercicio3.js"
+import { ejercicio4 } from "./ejercicio4.js"
 
 
 function mostrarMenu() {
@@ -38,7 +39,9 @@ function ejecutarMenu() {
 
         switch (opcion) {
             case "1":
-                alert(ejercicio1())
+                alert(JSON.stringify(ejercicio1(), null, 2))
+                break
+
                 break
             case "2":
                 alert(JSON.stringify(ejercicio2(), null, 2))
@@ -53,8 +56,12 @@ function ejecutarMenu() {
                 break
             }
             case "4":
-                (ejercicio4())
+                let resultado = ejercicio4()
+                alert(
+                    JSON.stringify(resultado, null, 2)
+                )
                 break
+
             case "5":
                 (ejercicio5())
                 break
