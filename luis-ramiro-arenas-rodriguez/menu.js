@@ -61,6 +61,17 @@ function menu() {
                 break;
 
                 case "3":
+                    const estudiante = {
+                        promedio: 5.0,
+                        edad: 11,
+                        estrato: 2
+                    }
+                    alert("Datos estudiante: " + JSON.stringify(estudiante));
+                    alert("Beca otorgada: " + sistemaBecas(estudiante));
+                    break;
+
+                    case "4":
+
 
 
         }}
