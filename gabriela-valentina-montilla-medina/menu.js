@@ -3,6 +3,7 @@ import { ejercicio2 } from "./ejercicio2.js"
 import { ejercicio3 } from "./ejercicio3.js"
 import { ejercicio4 } from "./ejercicio4.js"
 import { ejercicio5 } from "./ejercicio5.js"
+import { ejercicio6 } from "./ejercicio6.js"
 
 
 function mostrarMenu() {
@@ -69,7 +70,10 @@ function ejecutarMenu() {
                 )
                 break
             case "6":
-                (ejercicio6())
+                case "6":
+                alert("Total de impuestos: $" + ejercicio6())
+                break
+
                 break
             case "7":
                 (ejercicio7())
