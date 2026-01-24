@@ -1,4 +1,4 @@
-function cajeroDeDenominaciones(monto) {
+function cajeroAutomatico(monto) {
     if (monto <= 0 || monto % 10000 !== 0) {
         return "Error: El monto debe ser múltiplo de $10.000 y mayor a 0";
     }
@@ -20,4 +20,4 @@ function cajeroDeDenominaciones(monto) {
     return resultado;
 }
 
-module.exports = cajeroDeDenominaciones;
+export {cajeroAutomatico}
