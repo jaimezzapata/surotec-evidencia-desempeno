@@ -4,6 +4,7 @@ import { verificarBeca } from './ejercicio3.js'
 import { calcularTotalCarrito } from './ejercicio4.js'
 import { controlAsistencia } from './ejercicio5.js'
 import { calcularImpuestos } from './ejercicio6.js'
+import { validarContrasena } from './ejercicio7.js'
 
 function ejecutarMenu() {
 
@@ -17,6 +18,7 @@ function ejecutarMenu() {
         menu += "4. Carrito con Descuento (Electrónica)\n";
         menu += "5. Control de Asistencia\n";
         menu += "6. Impuestos de Ventas\n";
+        menu += "7. Validador de Contraseñas\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -67,7 +69,6 @@ function ejecutarMenu() {
                 break
 
             case '5':
-                
                 const llegadas = ["08:05", "07:20", "07:30", "07:50", "08:16"]
                 const resultado5 = controlAsistencia(llegadas)
                 alert("RESULTADO ASISTENCIA: " + resultado5)
@@ -82,6 +83,12 @@ function ejecutarMenu() {
                 }
                 const totalImpuestos = calcularImpuestos(ventas)
                 alert("TOTAL IMPUESTOS ACUMULADOS: " + totalImpuestos)
+                break
+
+            case '7':
+                const password = prompt("Ingrese la contraseña a validar")
+                const seguridad = validarContrasena(password)
+                alert("LA CONTRASEÑA ES: " + seguridad)
                 break
 
             case '0':
