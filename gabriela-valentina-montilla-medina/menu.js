@@ -7,7 +7,7 @@ import { ejercicio6 } from "./ejercicio6.js"
 import { ejercicio7 } from "./ejercicio7.js"
 import { ejercicio8 } from "./ejercicio8.js"
 import { ejercicio9 } from "./ejercicio9.js"
-
+import { ejercicio10 } from "./ejercicio10.js"
 
 function mostrarMenu() {
     return prompt(
@@ -86,7 +86,7 @@ function ejecutarMenu() {
                 alert("Salario total: $" + ejercicio9())
                 break
             case "10":
-                (ejercicio10())
+                alert("Valor convertido: " + ejercicio10())
                 break
             case "11":
                 (ejercicio11())
