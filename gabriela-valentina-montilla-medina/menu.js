@@ -1,23 +1,5 @@
-import {ejercicio1  } from "./ejercicio1.js"
-import {ejercicio2  } from "./ejercicio2.js"
-import {ejercicio3  } from "./ejercicio3.js"
-import {ejercicio4  } from "./ejercicio4.js"
-import {ejercicio5  } from "./ejercicio5.js"
-import {ejercicio6  } from "./ejercicio6.js"
-import {ejercicio7  } from "./ejercicio7.js"
-import {ejercicio8  } from "./ejercicio8.js"
-import {ejercicio9  } from "./ejercicio9.js"
-import {ejercicio10 } from "./ejercicio10.js"
-import {ejercicio11 } from "./ejercicio11.js"
-import {ejercicio12 } from "./ejercicio12.js"
-import {ejercicio13 } from "./ejercicio13.js"
-import {ejercicio14 } from "./ejercicio14.js"
-import {ejercicio15 } from "./ejercicio15.js"
-import {ejercicio16 } from "./ejercicio16.js"
-import {ejercicio17 } from "./ejercicio17.js"
-import {ejercicio18 } from "./ejercicio18.js"
-import {ejercicio19 } from "./ejercicio19.js"
-import {ejercicio20 } from "./ejercicio20.js"
+import { ejercicio1 } from "./ejercicio1.js"
+import { ejercicio2 } from "./ejercicio2.js"
 
 
 function mostrarMenu() {
@@ -55,10 +37,13 @@ function ejecutarMenu() {
 
     switch (opcion) {
       case "1":
-        (ejercicio1())
+        alert(ejercicio1()) 
         break
       case "2":
-        (ejercicio2())
+   case "2":
+  alert(JSON.stringify(ejercicio2()))
+  break
+
         break
       case "3":
        (ejercicio3())

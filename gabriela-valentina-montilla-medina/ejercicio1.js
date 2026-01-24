@@ -1,18 +1,20 @@
 // Ejercicio 1
-export function ejercicio1(monto) {
+export function ejercicio1() {
+  let monto = Number(prompt("Ingrese el monto a retirar"))
+
   if (monto % 10000 !== 0) {
     return "Monto inválido"
   }
 
   let restante = monto
 
-  const billetes50000 = Math.floor(restante / 50000)
+  let billetes50000 = Math.floor(restante / 50000)
   restante -= billetes50000 * 50000
 
-  const billetes20000 = Math.floor(restante / 20000)
+  let billetes20000 = Math.floor(restante / 20000)
   restante -= billetes20000 * 20000
 
-  const billetes10000 = Math.floor(restante / 10000)
+  let billetes10000 = Math.floor(restante / 10000)
 
   return {
     billetes50000: billetes50000,
