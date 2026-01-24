@@ -5,6 +5,7 @@ import { calcularTotalCarrito } from './ejercicio4.js'
 import { controlAsistencia } from './ejercicio5.js'
 import { calcularImpuestos } from './ejercicio6.js'
 import { validarContrasena } from './ejercicio7.js'
+import { estadisticasPuntaje } from './ejercicio8.js'
 
 function ejecutarMenu() {
 
@@ -19,6 +20,7 @@ function ejecutarMenu() {
         menu += "5. Control de Asistencia\n";
         menu += "6. Impuestos de Ventas\n";
         menu += "7. Validador de Contraseñas\n";
+        menu += "8. Estadísticas de Puntaje\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -89,6 +91,17 @@ function ejecutarMenu() {
                 const password = prompt("Ingrese la contraseña a validar")
                 const seguridad = validarContrasena(password)
                 alert("LA CONTRASEÑA ES: " + seguridad)
+                break
+
+            case '8':
+                const entradaPuntajes = prompt("Ingrese los puntajes separados por coma (ej: 10,50,80,20)")
+                const arrayStrPuntajes = entradaPuntajes.split(",")
+                const puntajes = []
+                for (let i = 0; i < arrayStrPuntajes.length; i++) {
+                    puntajes.push(Number(arrayStrPuntajes[i]))
+                }
+                const promedioAjustado = estadisticasPuntaje(puntajes)
+                alert("PROMEDIO AJUSTADO: " + promedioAjustado)
                 break
 
             case '0':
