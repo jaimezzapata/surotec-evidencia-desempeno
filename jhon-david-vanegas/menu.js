@@ -3,6 +3,7 @@ const readline = require('readline')
 
 const ejercicio1 = require('./ejercicio1')
 const ejercicio2 = require('./ejercicio2')
+const sistemaBecas = require('./ejercicio3')
 
 
 const rl = readline.createInterface({
@@ -28,16 +29,29 @@ function ejecutarEjercicio(opcion) {
       })
       return
     case 2:
-        case 2:
-            const productos = [
-            { nombre: 'Arroz', stock: 3, precio: 4000 },
-            { nombre: 'Leche', stock: 10, precio: 3500 },
-            { nombre: 'Huevos', stock: 25, precio: 10200 }
-           ]
+        const productos = [
+        { nombre: 'Arroz', stock: 3, precio: 4000 },
+        { nombre: 'Leche', stock: 10, precio: 3500 },
+        { nombre: 'Huevos', stock: 25, precio: 10200 }
+        ]
 
-            console.log(ejercicio2(productos))
-            iniciarMenu()
-            return
+        console.log(ejercicio2(productos))
+        iniciarMenu()
+        return
+
+    case 3:
+        const estudiante = {
+        promedio: 4.2,
+        edad: 17,
+        estrato: 1
+        }
+
+        console.log(sistemaBecas(estudiante))
+        iniciarMenu()
+        return
+
+
+    
 
     default:
       console.log('Opcion invalida')
