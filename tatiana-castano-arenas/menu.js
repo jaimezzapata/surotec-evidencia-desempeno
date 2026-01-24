@@ -8,6 +8,7 @@ import { validarPassword } from "./ejercicio7.js";
 import { calcularEstadisticas } from "./ejercicio8.js";
 import { calcularNomina } from "./ejercicio9.js";
 import { convertirMoneda } from "./ejercicio10.js";
+import { calcularEstudiantesFuera } from "./ejercicio11.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -96,7 +97,7 @@ function ejecutarOpcion(opcion) {
             }
             break;
         case "7":
-            alert("Requisitos: Mínimo 8 caracteres, 1 número y 1 especial.");
+            alert("Mínimo 8 caracteres, 1 número y 1 especial.");
             const password = prompt("Ingrese contraseña:");
             if (password !== null) alert(`Resultado: ${validarPassword(password)}`);
             break;
@@ -120,18 +121,27 @@ function ejecutarOpcion(opcion) {
             alert(`Salario: $${calcularNomina(h, v)}`);
             break;
         case "10":
-            const valor = Number(prompt("Monto a convertir:"));
-            const origen = prompt("Moneda origen (USD, EUR, COP):").toUpperCase();
-            const destino = prompt("Moneda destino (USD, EUR, COP):").toUpperCase();
-            
-            const conversion = convertirMoneda(valor, origen, destino);
-            alert(`Resultado: ${conversion.resultado} ${destino}\nConversiones realizadas: ${conversion.totalConsultas}`);
+            const valor = Number(prompt("Monto:"));
+            const ori = prompt("Origen (USD, EUR, COP):").toUpperCase();
+            const des = prompt("Destino (USD, EUR, COP):").toUpperCase();
+            const conv = convertirMoneda(valor, ori, des);
+            alert(`Total: ${conv.resultado} ${des}\nConsultas: ${conv.totalConsultas}`);
             break;
-        case "0":
-            return false;
-        default:
-            alert("Opción inválida.");
-            break;
+        case "11":
+    const limite = Number(prompt("Capacidad del aula (ej: 11):"));
+    let gruposEstudiantes = [];
+    let agregando = true;
+    while (agregando) {
+        let grupo = prompt("Cantidad de estudiantes en el grupo o 'F' para finalizar:");
+        if (grupo?.toUpperCase() === "F") {
+            const fuera = calcularEstudiantesFuera(limite, gruposEstudiantes);
+            alert(`Total estudiantes: ${gruposEstudiantes.reduce((a, b) => a + b, 0)}\nEntraron: ${limite}\nQuedaron fuera: ${fuera}`);
+            agregando = false;
+        } else if (!isNaN(grupo) && grupo !== "") {
+            gruposEstudiantes.push(Number(grupo));
+        }
+    }
+    break;
     }
     return true;
 }
@@ -151,6 +161,7 @@ function iniciarPrograma() {
             "8. Estadísticas de Puntaje\n" +
             "9. Nómina con Recargos\n" +
             "10. Conversor de Moneda\n" +
+            "11. Capacidad de Aula\n" +
             "0. Salir"
         );
         continuar = (seleccion === "0" || seleccion === null) ? false : ejecutarOpcion(seleccion);
