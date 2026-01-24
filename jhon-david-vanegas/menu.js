@@ -12,7 +12,7 @@ const estadisticasPuntaje = require('./ejercicio8')
 const nominaRecargos = require('./ejercicio9')
 const conversor = require('./ejercicio10')
 const capacidadAula = require('./ejercicio11')
-
+const analizarPalabrasProhibidas = require('./ejercicio12')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -137,6 +137,13 @@ function ejecutarEjercicio(opcion) {
       iniciarMenu()
     return
 
+  case 12:
+    const texto = 'Este texto tiene palabras malas y malas repetidas'
+    const prohibidas = ['malas', 'texto']
+
+    console.log(analizarPalabrasProhibidas(texto, prohibidas))
+    iniciarMenu()
+    return
 
 
 
