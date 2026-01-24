@@ -18,6 +18,7 @@ const descuentoLealtad = require('./ejercicio14')
 const filtrarTareasUrgentes = require('./ejercicio15')
 const liquidacionServicios = require('./ejercicio16')
 const monitoreoTransacciones = require('./ejercicio17')
+const restriccionBiblioteca = require('./ejercicio18')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -188,6 +189,18 @@ function ejecutarEjercicio(opcion) {
   console.log(monitoreoTransacciones(historial))
   iniciarMenu()
   return
+
+  case 18:
+  const prestamos = [
+    { fechaDevolucion: '2025-01-01', multa: 3000 },
+    { fechaDevolucion: '2025-01-15', multa: 4000 }
+  ]
+
+  const permitido = restriccionBiblioteca(prestamos)
+  console.log(permitido ? 'Préstamo permitido' : 'Préstamo denegado')
+  iniciarMenu()
+  return
+
 
 
 
