@@ -10,6 +10,7 @@ const impuestosVentas = require('./ejercicio6')
 const validadorContrasenas = require('./ejercicio7')
 const estadisticasPuntaje = require('./ejercicio8')
 const nominaRecargos = require('./ejercicio9')
+const conversor = require('./ejercicio10')
 
 
 const rl = readline.createInterface({
@@ -111,9 +112,24 @@ function ejecutarEjercicio(opcion) {
        iniciarMenu()
        return
 
+    case 10:
+     rl.question('Monto: ', monto => {
+      rl.question('Moneda origen (COP, USD, EUR): ', origen => {
+       rl.question('Moneda destino (COP, USD, EUR): ', destino => {
+         const resultado = conversor(
+           Number(monto),
+           origen.toUpperCase(),
+           destino.toUpperCase()
+         )
+
+         console.log(resultado)
+         iniciarMenu()
+        })
+     })
+   })
+   return
 
 
-    
 
     default:
       console.log('Opcion invalida')
