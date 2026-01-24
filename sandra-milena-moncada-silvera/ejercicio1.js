@@ -19,3 +19,5 @@ export function calcularMonto(monto) {
   };
 }
 
+console.log(calcularMonto(80000));
+

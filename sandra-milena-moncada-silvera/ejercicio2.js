@@ -9,8 +9,12 @@ export function ajustarPreciosInventario(listaProductos) {
         }
 
         return {
-            ...producto,
+            nombre: producto.nombre,
+            stock: producto.stock,
             precio: Number(nuevoPrecio.toFixed(2))
         };
+     
     });
-}
+} 
+
+
