@@ -15,6 +15,7 @@ const capacidadAula = require('./ejercicio11')
 const analizarPalabrasProhibidas = require('./ejercicio12')
 const alertaSensores = require('./ejercicio13')
 const descuentoLealtad = require('./ejercicio14')
+const filtrarTareasUrgentes = require('./ejercicio15')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -161,6 +162,16 @@ function ejecutarEjercicio(opcion) {
     iniciarMenu()
     return
 
+  case 15:
+  const tareas = [
+    { descripcion: 'Informe', prioridad: 'alta', dias: 1 },
+    { descripcion: 'Reunión', prioridad: 'media', dias: 1 },
+    { descripcion: 'Pago', prioridad: 'alta', dias: 3 }
+  ]
+
+  console.log(filtrarTareasUrgentes(tareas))
+  iniciarMenu()
+  return
 
 
     default:
