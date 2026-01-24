@@ -15,6 +15,7 @@ import { calcularDescuentoLealtad } from "./ejercicio14.js";
 import { filtrarTareasUrgentes } from "./ejercicio15.js";
 import { calcularLiquidacionAgua } from "./ejercicio16.js";
 import { monitorearTransacciones } from "./ejercicio17.js";
+import { validarPrestamoBiblioteca } from "./ejercicio18.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -113,29 +114,61 @@ function ejecutarOpcion(opcion) {
         case "14":
             const cP = { compras: [120000, 95000, 150000, 80000, 110000], años: 3 };
             const cN = { compras: [50000, 40000, 30000, 60000, 20000], años: 1 };
-            alert(`CLIENTE 1 (3 años):\n${calcularDescuentoLealtad(cP.compras, cP.años)}\n\nCLIENTE 2 (1 año):\n${calcularDescuentoLealtad(cN.compras, cN.años)}`);
+            alert(`CLIENTE 1 (3 años): ${calcularDescuentoLealtad(cP.compras, cP.años)}\nCLIENTE 2 (1 año): ${calcularDescuentoLealtad(cN.compras, cN.años)}`);
             break;
         case "15":
-            const listaTareas = [
-                { descripcion: "Corregir bug login", prioridad: "alta", dias: 1 },
-                { descripcion: "Subir a producción", prioridad: "alta", dias: 0 },
-                { descripcion: "Revisar correo", prioridad: "baja", dias: 0 }
-            ];
-            const urgentes = filtrarTareasUrgentes(listaTareas);
-            alert("TAREAS URGENTES:\n" + JSON.stringify(urgentes, null, 2));
+            const listaT = [{ descripcion: "Bug login", prioridad: "alta", dias: 1 }, { descripcion: "Producción", prioridad: "alta", dias: 0 }];
+            alert("TAREAS URGENTES:\n" + JSON.stringify(filtrarTareasUrgentes(listaT), null, 2));
             break;
         case "16":
-            const resH2O = calcularLiquidacionAgua(35, 1);
-            alert(`Liquidación Agua (35m3, Estrato 1): $${resH2O}`);
+            alert(`Liquidación Agua (35m3, Est 1): $${calcularLiquidacionAgua(35, 1)}`);
             break;
         case "17":
-            const historial = [50000, 60000, 45000, 55000, 800000, 52000];
-            const analisis = monitorearTransacciones(historial);
-            const sospechosas = analisis.filter(t => t.estado === "Sospechosa");
-            alert(`HISTORIAL:\n${JSON.stringify(analisis, null, 2)}\n\nSOSPECHOSAS:\n${JSON.stringify(sospechosas, null, 2)}`);
+            const hTrans = [50000, 60000, 45000, 55000, 800000, 52000];
+            alert("SOSPECHOSAS:\n" + JSON.stringify(monitorearTransacciones(hTrans).filter(t => t.estado === "Sospechosa"), null, 2));
             break;
-        case "0": return false;
-        default: alert("Opción no válida."); break;
+        case "18":
+    // Datos de prueba (Hardcoded)
+    const usuariosBiblioteca = [
+        { nombre: "Ana Gómez", prestamos: [{ fechaDevolucion: "2024-05-15", multa: 12000 }] },
+        { nombre: "Luis Pérez", prestamos: [{ fechaDevolucion: "2024-05-01", multa: 2000 }] },
+        { nombre: "Carla Ruiz", prestamos: [{ fechaDevolucion: "2024-05-19", multa: 0 }] },
+        { nombre: "Juan Mora", prestamos: [{ fechaDevolucion: "2024-05-10", multa: 5000 }] }
+    ];
+
+    let reporteBiblioteca = "ESTADO DE USUARIOS - BIBLIOTECA\n";
+    reporteBiblioteca += "---------------------------------------\n";
+
+    usuariosBiblioteca.forEach(u => {
+        
+        const multaTotal = u.prestamos.reduce((acc, p) => acc + p.multa, 0);
+        const validacion = validarPrestamoBiblioteca(u.prestamos);
+        
+        reporteBiblioteca += ` ${u.nombre}\n`;
+        reporteBiblioteca += `   Multa acumulada: $${multaTotal}\n`;
+        reporteBiblioteca += `   Estado: ${validacion.concedido ? "Apto" : "No Apto"}\n\n`;
+    });
+
+
+    const conMultas = usuariosBiblioteca.filter(u => 
+        u.prestamos.some(p => p.multa > 0)
+    );
+
+    reporteBiblioteca += "---------------------------------------\n";
+    reporteBiblioteca += "USUARIOS CON MULTAS PENDIENTES:\n";
+    reporteBiblioteca += "---------------------------------------\n";
+
+    if (conMultas.length > 0) {
+        conMultas.forEach(u => {
+            const deuda = u.prestamos.reduce((acc, p) => acc + p.multa, 0);
+            reporteBiblioteca += ` ${u.nombre}: Debe $${deuda}\n`;
+        });
+    } else {
+        reporteBiblioteca += "No hay usuarios con deudas registradas.";
+    }
+
+    alert(reporteBiblioteca);
+    break;
     }
     return true;
 }
@@ -145,7 +178,7 @@ function iniciarPrograma() {
     while (loop) {
         const sel = prompt(
             "--- EVALUACIÓN JAVASCRIPT ---\n" +
-            "1-10. Ejercicios Base\n11. Aula\n12. Palabras\n13. Sensores\n14. Lealtad\n15. Tareas\n16. Agua\n17. Transacciones\n0. Salir"
+            "1-10. Ejercicios Base\n11. Aula\n12. Palabras\n13. Sensores\n14. Lealtad\n15. Tareas\n16. Agua\n17. Transacciones\n18. Biblioteca\n0. Salir"
         );
         loop = (sel === "0" || sel === null) ? false : ejecutarOpcion(sel);
     }
