@@ -8,6 +8,7 @@ import { validarContrasena } from "./ejercicio7.js";
 import { calcularEstadisticas } from "./ejercicio8.js";
 import { calcularNomina } from "./ejercicio9.js";
 import { convertirMoneda } from "./ejercicio10.js";
+import { gestionarAula } from "./ejercicio11.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -24,7 +25,7 @@ function ejecutarMenu() {
     menuPrincipal += "8. Estadísticas de Puntaje\n";
     menuPrincipal += "9. Nómina con Recargos\n";
     menuPrincipal += "10. Conversor de Monedas\n";
-    menuPrincipal += "11. Ejercicio 11\n";
+    menuPrincipal += "11. Capacidad de Aula\n";
     menuPrincipal += "12. Ejercicio 12\n";
     menuPrincipal += "13. Ejercicio 13\n";
     menuPrincipal += "14. Ejercicio 14\n";
@@ -188,6 +189,19 @@ function ejecutarMenu() {
             alert("Datos inválidos.");
         }
         break;
+
+      case "11":
+
+        const capacidadMaxima = 40;
+        const gruposEstudiantes = [15, 20, 10, 5];
+
+        alert(`Capacidad del aula: ${capacidadMaxima}\nGrupos llegando: ${JSON.stringify(gruposEstudiantes)}`);
+
+        const fuera = gestionarAula(gruposEstudiantes, capacidadMaxima);
+
+        alert(`Estudiantes que se quedaron fuera: ${fuera}\n(El grupo de 10 no cabía en los 5 espacios restantes, y bloqueó al siguiente grupo).`);
+        break;
+
       default:
         alert("Opción no válida");
         break;
