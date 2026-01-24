@@ -4,6 +4,7 @@ import { evaluarBeca } from "./ejercicio3.js";
 import { calcularTotalCarrito } from "./ejercicio4.js";
 import { calcularAsistenciaEmpleado } from "./ejercicio5.js";
 import { calcularImpuestosVentas } from "./ejercicio6.js";
+import { validarPassword } from "./ejercicio7.js";
 
 const inventario = [
     { nombre: "Teclado", stock: 6, precio: 100 },
@@ -82,22 +83,29 @@ function ejecutarOpcion(opcion) {
             let listaVentas = [];
             let ingresandoVentas = true;
             while (ingresandoVentas) {
-                let venta = prompt("Ingrese monto de venta bruta o 'C' para calcular impuestos:");
+                let venta = prompt("Ingrese venta o 'C' para calcular:");
                 if (venta?.toUpperCase() === "C") {
-                    const totalImpuestos = calcularImpuestosVentas(listaVentas);
-                    alert(`Total Impuestos a pagar (IVA + Retenciones): $${totalImpuestos}`);
+                    alert(`Total Impuestos: $${calcularImpuestosVentas(listaVentas)}`);
                     ingresandoVentas = false;
                 } else if (!isNaN(venta) && venta > 0) {
                     listaVentas.push(Number(venta));
-                    alert("Venta registrada.");
                 }
             }
             break;
-        case "0":
-            return false;
-        default:
-            alert("Opción inválida.");
-            break;
+        case "7":
+    const mensajeRequisitos = "REQUISITOS PARA UNA CONTRASEÑA SEGURA:\n" +
+                              "- Mínimo 8 caracteres.\n" +
+                              "- Al menos un número.\n" +
+                              "- Al menos un carácter especial (ej: @, #, $, *).";
+    
+    alert(mensajeRequisitos);
+    const password = prompt("Ingrese la contraseña a validar:");
+    
+    if (password !== null) {
+        const resultado = validarPassword(password);
+        alert(`La contraseña analizada es: ${resultado}`);
+    }
+    break;
     }
     return true;
 }
@@ -106,7 +114,7 @@ function iniciarPrograma() {
     let continuar = true;
     while (continuar) {
         const seleccion = prompt(
-            "MENÚ EVALUACIÓN\n1. Cajero\n2. Inventario\n3. Becas\n4. Carrito\n5. Asistencia\n6. Impuestos\n0. Salir"
+            "MENÚ EVALUACIÓN\n1. Cajero\n2. Inventario\n3. Becas\n4. Carrito\n5. Asistencia\n6. Impuestos\n7. Validador Password\n0. Salir"
         );
         continuar = (seleccion === "0" || seleccion === null) ? false : ejecutarOpcion(seleccion);
     }
