@@ -11,6 +11,7 @@ import { ejercicio10 } from "./ejercicio10.js"
 import { ejercicio11 } from "./ejercicio11.js"
 import { ejercicio12 } from "./ejercicio12.js"
 import { ejercicio13 } from "./ejercicio13.js"
+import { ejercicio14 } from "./ejercicio14.js"
 
 function mostrarMenu() {
     return prompt(
@@ -101,7 +102,12 @@ function ejecutarMenu() {
                 alert(ejercicio13())
                 break
             case "14":
-                (ejercicio14())
+                let descuento = ejercicio14()
+                if (descuento > 0) {
+                    alert("Descuento aplicado: 25%")
+                } else {
+                    alert("No aplica descuento")
+                }
                 break
             case "15":
                 (ejercicio15())
