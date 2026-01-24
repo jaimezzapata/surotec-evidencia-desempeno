@@ -7,6 +7,7 @@ const sistemaBecas = require('./ejercicio3')
 const carritoDescuentoCategoria = require('./ejercicio4')
 const controlAsistencia = require('./ejercicio5')
 const impuestosVentas = require('./ejercicio6')
+const validadorContrasenas = require('./ejercicio7')
 
 
 const rl = readline.createInterface({
@@ -77,6 +78,24 @@ function ejecutarEjercicio(opcion) {
        console.log(impuestosVentas(ventas))
        iniciarMenu()
      return
+
+     case 7:
+  function pedirContrasena() {
+    rl.question('Ingrese la contraseña: ', texto => {
+      const resultado = validadorContrasenas(texto)
+      console.log(resultado)
+
+      if (resultado === 'Segura') {
+        iniciarMenu()
+      } else {
+        pedirContrasena()
+      }
+    })
+  }
+
+  pedirContrasena()
+  return
+
 
     
 
