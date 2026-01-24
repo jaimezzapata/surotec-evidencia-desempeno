@@ -9,6 +9,7 @@ import { calcularEstadisticas } from "./ejercicio8.js";
 import { calcularNomina } from "./ejercicio9.js";
 import { convertirMoneda } from "./ejercicio10.js";
 import { gestionarAula } from "./ejercicio11.js";
+import { analizarPalabras } from "./ejercicio12.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -26,7 +27,7 @@ function ejecutarMenu() {
     menuPrincipal += "9. Nómina con Recargos\n";
     menuPrincipal += "10. Conversor de Monedas\n";
     menuPrincipal += "11. Capacidad de Aula\n";
-    menuPrincipal += "12. Ejercicio 12\n";
+    menuPrincipal += "12. Detector de Palabras Prohibidas\n";
     menuPrincipal += "13. Ejercicio 13\n";
     menuPrincipal += "14. Ejercicio 14\n";
     menuPrincipal += "15. Ejercicio 15\n";
@@ -200,6 +201,17 @@ function ejecutarMenu() {
         const fuera = gestionarAula(gruposEstudiantes, capacidadMaxima);
 
         alert(`Estudiantes que se quedaron fuera: ${fuera}\n(El grupo de 10 no cabía en los 5 espacios restantes, y bloqueó al siguiente grupo).`);
+        break;
+case "12":
+
+        const textoUsuario = "Este es un texto de prueba. A veces la gente es tonta o se comporta como un bobo. No seas BOBO.";
+        const malasPalabras = ["tonta", "bobo", "inútil"];
+
+        alert(`Texto a analizar:\n"${textoUsuario}"\n\nLista negra: ${JSON.stringify(malasPalabras)}`);
+
+        const resultadoAnalisis = analizarPalabras(textoUsuario, malasPalabras);
+
+        alert(`Reporte de Infracciones:\n${JSON.stringify(resultadoAnalisis, null, 2)}`);
         break;
 
       default:
