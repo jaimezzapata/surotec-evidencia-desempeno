@@ -15,8 +15,8 @@ import { ejercicio14 } from "./ejercicio14.js";
 import { ejercicio15 } from "./ejercicio15.js";
 import { ejercicio16 } from "./ejercicio16.js";
 import { ejercicio17 } from "./ejercicio17.js";
-/*import { ejercicio18 } from "./ejercicio18.js";
-import { ejercicio19 } from "./ejercicio19.js";
+import { ejercicio18 } from "./ejercicio18.js";
+/*import { ejercicio19 } from "./ejercicio19.js";
 import { ejercicio20 } from "./ejercicio20.js"; */
 
 function ejecutarPrograma() {
