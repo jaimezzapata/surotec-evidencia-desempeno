@@ -10,6 +10,7 @@ import { calcularNomina } from './ejercicio9.js';
 import { convertirMoneda } from './ejercicio10.js';
 import { calcularCapacidadAula } from './ejercicio11.js';
 import { analizarPalabrasProhibidas } from './ejercicio12.js';
+import { monitorearSensores } from './ejercicio13.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -29,6 +30,7 @@ function menuPrincipal() {
             "10. Conversor de moneda con seguimiento de contador de ejecuciones\n" +
             "11. Calcular capacidad de aula distribuida por grupos\n" +
             "12. Analizar palabras prohibidas en un texto\n" +
+            "13. Sensor de temperaturas con alerta\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -233,6 +235,21 @@ function menuPrincipal() {
 
                     alert(reporte);
                     console.table(resultado12);
+                }
+                break;
+
+            case '13':
+                const tempsInput = prompt("Ingrese las temperaturas separadas por coma (ej: 30,36,37,38,32):");
+
+                if (tempsInput) {
+                    const listaTemps = tempsInput.split(',').map(Number);
+                    const resultado13 = monitorearSensores(listaTemps);
+
+                    alert(
+                        `--- REPORTE DE SENSORES ---\n` +
+                        `Lecturas: ${listaTemps.join('°C, ')}°C\n` +
+                        `Resultado: ${resultado13}`
+                    );
                 }
                 break;
         }
