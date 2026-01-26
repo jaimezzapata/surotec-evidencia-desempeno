@@ -12,6 +12,7 @@ import { calcularCapacidadAula } from './ejercicio11.js';
 import { analizarPalabrasProhibidas } from './ejercicio12.js';
 import { monitorearSensores } from './ejercicio13.js';
 import { evaluarLealtadClientes, clientesPrueba } from './ejercicio14.js';
+import { filtrarTareasUrgentes, tareasPrueba } from './ejercicio15.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -33,6 +34,7 @@ function menuPrincipal() {
             "12. Analizar palabras prohibidas en un texto\n" +
             "13. Sensor de temperaturas con alerta\n" +
             "14. Evaluación de descuento a clientes por fidelidad en compras\n" +
+            "15. Filtro de actividades por prioridad y días restantes\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -269,6 +271,40 @@ function menuPrincipal() {
 
                 alert(reporte14);
                 console.table(resultados14);
+                break;
+
+
+            case '15':
+                const hoy = new Date();
+                const urgentes = filtrarTareasUrgentes(tareasPrueba);
+
+                let reporte15 = "--- DATOS DE PRUEBA CARGADOS ---\n";
+                tareasPrueba.forEach((t, i) => {
+                    reporte15 += `${i + 1}. ${t.descripcion} | ${t.prioridad} | Vence: ${t.fechaVencimiento}\n`;
+                });
+
+                reporte15 += "\n----------------------------------------\n";
+                reporte15 += `FECHA ACTUAL: ${hoy.toLocaleDateString()}\n`;
+                reporte15 += "----------------------------------------\n\n";
+
+                reporte15 += "--- TAREAS URGENTES (Alta Prioridad & < 2 días) ---\n";
+
+                if (urgentes.length > 0) {
+                    urgentes.forEach(t => {
+                        const fechaV = new Date(t.fechaVencimiento);
+                        const diff = Math.ceil((fechaV - hoy) / (1000 * 60 * 60 * 24));
+
+                        reporte15 += `[!] ${t.descripcion.toUpperCase()}\n`;
+                        reporte15 += `    Plazo: ${diff === 0 ? "VENCE HOY" : diff + " día(s)"}\n`;
+                        reporte15 += `---------------------------\n`;
+                    });
+                } else {
+                    reporte15 += "No se encontraron tareas que cumplan los criterios.";
+                }
+
+                alert(reporte15);
+                console.log("Datos Originales:", tareasPrueba);
+                console.table(urgentes);
                 break;
         }
     }
