@@ -86,7 +86,13 @@ function ejecutarOpc(opc) {
       break;
 
     case "5":
-        
+        const horasLlegada = ["08:10", "08:20", "08:05", "08:30", "08:16"];
+
+        alert("Horas de llegada: " + JSON.stringify(horasLlegada));
+        alert("Resultado control de asistencia: " + controlAsistencia(horasLlegada));
+        break;
+
+    
 
 
 
