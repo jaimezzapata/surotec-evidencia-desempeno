@@ -13,6 +13,7 @@ import { analizarPalabrasProhibidas } from './ejercicio12.js';
 import { monitorearSensores } from './ejercicio13.js';
 import { evaluarLealtadClientes, clientesPrueba } from './ejercicio14.js';
 import { filtrarTareasUrgentes, tareasPrueba } from './ejercicio15.js';
+import { liquidarServicioAgua } from './ejercicio16.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -35,6 +36,7 @@ function menuPrincipal() {
             "13. Sensor de temperaturas con alerta\n" +
             "14. Evaluación de descuento a clientes por fidelidad en compras\n" +
             "15. Filtro de actividades por prioridad y días restantes\n" +
+            "16. Liquidación de agua por rangos progresivos y subsidio por estrato\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -305,6 +307,33 @@ function menuPrincipal() {
                 alert(reporte15);
                 console.log("Datos Originales:", tareasPrueba);
                 console.table(urgentes);
+                break;
+
+            case '16':
+                const infoRangos =
+                    "--- TARIFAS DE AGUA ---\n" +
+                    "1. Primeros 15m³: $1.000 c/u\n" +
+                    "2. De 16m³ a 30m³: $1.500 c/u\n" +
+                    "3. Exceso (>30m³): $2.500 c/u\n" +
+                    "* Estrato 1 recibe 20% de subsidio.\n";
+
+                alert(infoRangos);
+
+                const consumoUsuario = parseFloat(prompt("Ingrese los m³ consumidos:"));
+                const estratoUsuario = parseInt(prompt("Ingrese su estrato (1-6):"));
+
+                if (!isNaN(consumoUsuario) && !isNaN(estratoUsuario)) {
+                    const totalPagar = liquidarServicioAgua(consumoUsuario, estratoUsuario);
+
+                    alert(
+                        `--- LIQUIDACIÓN FINAL ---\n` +
+                        `Consumo: ${consumoUsuario} m³\n` +
+                        `Estrato: ${estratoUsuario}\n` +
+                        `Subsidio aplicado: ${estratoUsuario === 1 ? "SÍ (20%)" : "NO"}\n` +
+                        `---------------------------\n` +
+                        `TOTAL A PAGAR: $${totalPagar}`
+                    );
+                }
                 break;
         }
     }
