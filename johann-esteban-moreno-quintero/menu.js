@@ -17,6 +17,7 @@ import { liquidarServicioAgua } from './ejercicio16.js';
 import { monitorearTransacciones, historialTransaccionesPrueba } from './ejercicio17.js';
 import { validarPrestamoBiblioteca, usuarioAprobado, usuarioDenegado } from './ejercicio18.js';
 import { planificarRutaEficiente, rutaPrueba } from './ejercicio19.js';
+import { generarYDescargarCsv, listaUsuariosPrueba } from './ejercicio20.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -43,6 +44,7 @@ function menuPrincipal() {
             "17. Monitoreo de transacciones sospechosas por desviación de promedio\n" +
             "18. Sistema de biblioteca para validación de multas y retrasos\n" +
             "19. Planificación de ruta de entrega basada en combustible\n" +
+            "20. Generador de CSV para exportación de datos de usuarios\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -411,6 +413,27 @@ function menuPrincipal() {
 
                     reporte19 += `\nTotal destinos logrados: ${res19.resumen.cantidadAlcanzados}`;
                     alert(reporte19);
+                }
+                break;
+
+            case '20':
+                const agregar = confirm("--- GENERADOR DE CSV ---\n\n¿Desea registrar un nuevo usuario antes de exportar?");
+
+                if (agregar) {
+                    const id = listaUsuariosPrueba.length + 1;
+                    const nombre = prompt("Nombre completo:");
+                    const email = prompt("Correo electrónico:");
+                    if (nombre && email) {
+                        listaUsuariosPrueba.push({ id, nombre, email });
+                        alert("Usuario agregado exitosamente.");
+                    }
+                }
+
+                const descargar = confirm(`Actualmente hay ${listaUsuariosPrueba.length} usuarios. ¿Desea descargar el archivo CSV ahora?`);
+
+                if (descargar) {
+                    const textoGenerado = generarYDescargarCsv(listaUsuariosPrueba);
+                    alert("¡Archivo 'usuarios_registrados.csv' generado!\n\nVista previa:\n" + textoGenerado);
                 }
                 break;
 
