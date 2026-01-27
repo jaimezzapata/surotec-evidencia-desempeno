@@ -15,6 +15,7 @@ import { evaluarLealtadClientes, clientesPrueba } from './ejercicio14.js';
 import { filtrarTareasUrgentes, tareasPrueba } from './ejercicio15.js';
 import { liquidarServicioAgua } from './ejercicio16.js';
 import { monitorearTransacciones, historialTransaccionesPrueba } from './ejercicio17.js';
+import { validarPrestamoBiblioteca, usuarioAprobado, usuarioDenegado } from './ejercicio18.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -39,6 +40,7 @@ function menuPrincipal() {
             "15. Filtro de actividades por prioridad y días restantes\n" +
             "16. Liquidación de agua por rangos progresivos y subsidio por estrato\n" +
             "17. Monitoreo de transacciones sospechosas por desviación de promedio\n" +
+            "18. Sistema de biblioteca para validación de multas y retrasos\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -355,7 +357,27 @@ function menuPrincipal() {
                 alert(reporte17);
                 console.table(analisis);
                 break;
-                
+
+            case '18':
+                const testOpcion = prompt("Seleccione caso de prueba:\n1. Usuario con deuda leve (Aprobado)\n2. Usuario con deuda/retraso grave (Denegado)");
+
+                const datosPrueba = (testOpcion === '1') ? usuarioAprobado : usuarioDenegado;
+                const resultado18 = validarPrestamoBiblioteca(datosPrueba);
+
+                let reporte18 = `--- SIMULACIÓN DE BIBLIOTECA (CASO ${testOpcion === '1' ? 'APROBADO' : 'DENEGADO'}) ---\n\n`;
+                reporte18 += `ESTADO: ${resultado18.autorizado ? "AUTORIZADO" : "DENEGADO"}\n`;
+                reporte18 += `Deuda Total: $${resultado18.resumen.multaAcumulada}\n`;
+                reporte18 += `¿Tiene retraso > 10 días?: ${resultado18.resumen.retrasoGrave ? "SÍ" : "NO"}\n`;
+                reporte18 += `---------------------------\n`;
+
+                resultado18.detalles.forEach(d => {
+                    reporte18 += `- ${d.libro}: ${d.estado} ($${d.multa})\n`;
+                });
+
+                alert(reporte18);
+                console.table(resultado18.detalles);
+                break;
+
         }
     }
 }
