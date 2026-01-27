@@ -14,6 +14,7 @@ import { monitorearSensores } from './ejercicio13.js';
 import { evaluarLealtadClientes, clientesPrueba } from './ejercicio14.js';
 import { filtrarTareasUrgentes, tareasPrueba } from './ejercicio15.js';
 import { liquidarServicioAgua } from './ejercicio16.js';
+import { monitorearTransacciones, historialTransaccionesPrueba } from './ejercicio17.js';
 
 function menuPrincipal() {
     let continuar = true;
@@ -37,6 +38,7 @@ function menuPrincipal() {
             "14. Evaluación de descuento a clientes por fidelidad en compras\n" +
             "15. Filtro de actividades por prioridad y días restantes\n" +
             "16. Liquidación de agua por rangos progresivos y subsidio por estrato\n" +
+            "17. Monitoreo de transacciones sospechosas por desviación de promedio\n" +
             "0. Salir\n" +
             "Seleccione una opción:"
         );
@@ -335,6 +337,25 @@ function menuPrincipal() {
                     );
                 }
                 break;
+
+            case '17':
+                const analisis = monitorearTransacciones(historialTransaccionesPrueba);
+
+                let reporte17 = "--- MONITOREO DE TRANSACCIONES ---\n";
+                reporte17 += "Criterio: Alerta si > 300% del promedio anterior\n\n";
+
+                analisis.forEach(t => {
+                    reporte17 += `T#${t.transaccion}: $${t.monto} | ${t.estado}`;
+                    if (t.estado === "Sospechosa") {
+                        reporte17 += ` [!] (Promedio: $${t.promedioPrevio})`;
+                    }
+                    reporte17 += "\n";
+                });
+
+                alert(reporte17);
+                console.table(analisis);
+                break;
+                
         }
     }
 }
