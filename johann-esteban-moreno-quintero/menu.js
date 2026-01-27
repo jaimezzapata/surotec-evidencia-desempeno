@@ -6,7 +6,7 @@ import { evaluarAsistencia, asistenciasPrueba1, asistenciasPrueba2 } from './eje
 import { calcularImpuestosVentas, ventasPrueba } from './ejercicio6.js';
 import { validarPassword, passwordPruebaSegura, passwordPruebaInsegura } from './ejercicio7.js';
 import { calcularEstadisticasPuntaje, puntajesPrueba } from './ejercicio8.js';
-import { calcularNomina } from './ejercicio9.js';
+import { calcularNomina, datosNominaPrueba } from './ejercicio9.js';
 import { convertirMoneda } from './ejercicio10.js';
 import { calcularCapacidadAula } from './ejercicio11.js';
 import { analizarPalabrasProhibidas } from './ejercicio12.js';

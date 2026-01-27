@@ -1,3 +1,5 @@
+export const datosNominaPrueba = { horas: 40, valorHora: 20000 };
+
 export function calcularNomina(horasTrabajadas, valorHora) {
     let normal = 0;
     let extra50 = 0;
