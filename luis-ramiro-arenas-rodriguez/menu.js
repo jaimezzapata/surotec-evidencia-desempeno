@@ -99,6 +99,11 @@ function ejecutarOpc(opc) {
         alert ("Total impuestos de ventas: " + impuestosVentas(ventas));
         break;
 
+        case "7":
+          const contrasena = prompt("Ingrese la contraseña a validar:");
+          const resultado = validarContrasena(contrasena);
+          alert("La contraseña es: " + resultado);
+          break;
 
 
 
