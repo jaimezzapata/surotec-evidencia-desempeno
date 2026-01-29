@@ -9,6 +9,7 @@ import { estadisticasPuntaje } from './ejercicio8.js'
 import { calcularNomina } from './ejercicio9.js'
 import { convertirDivisas } from './ejercicio10.js'
 import { gestionarAula } from './ejercicio11.js'
+import { analizarPalabras } from './ejercicio12.js'
 
 function ejecutarMenu() {
 
@@ -27,6 +28,7 @@ function ejecutarMenu() {
         menu += "9. Nómina con Recargos\n";
         menu += "10. Conversor de Divisas con Registro\n";
         menu += "11. Capacidad de Aula\n";
+        menu += "12. Análisis de Palabras Prohibidas\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -135,6 +137,14 @@ function ejecutarMenu() {
                 }
                 const fuera = gestionarAula(capacidad, grupos)
                 alert("ESTUDIANTES QUE QUEDARON FUERA: " + fuera)
+                break
+
+            case '12':
+                const texto = prompt("Ingrese el texto a analizar")
+                const entradaProhibidas = prompt("Ingrese palabras prohibidas separadas por coma")
+                const prohibidas = entradaProhibidas.split(",")
+                const resultado12 = analizarPalabras(texto, prohibidas)
+                alert("CONTEO PALABRAS: \n" + JSON.stringify(resultado12, null, 2))
                 break
 
             case '0':
