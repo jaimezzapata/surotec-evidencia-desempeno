@@ -86,27 +86,35 @@ function ejecutarOpc(opc) {
       break;
 
     case "5":
-        const horasLlegada = ["08:10", "08:20", "08:05", "08:30", "08:16"];
+      const horasLlegada = ["08:10", "08:20", "08:05", "08:30", "08:16"];
 
-        alert("Horas de llegada: " + JSON.stringify(horasLlegada));
-        alert("Resultado control de asistencia: " + controlAsistencia(horasLlegada));
-        break;
+      alert("Horas de llegada: " + JSON.stringify(horasLlegada));
+      alert(
+        "Resultado control de asistencia: " + controlAsistencia(horasLlegada),
+      );
+      break;
 
     case "6":
-        const ventas = [300000, 600000, 1500, 450000];
+      const ventas = [300000, 600000, 1500, 450000];
 
-        alert ("Ventas registradas: " + JSON.stringify(ventas));
-        alert ("Total impuestos de ventas: " + impuestosVentas(ventas));
-        break;
+      alert("Ventas registradas: " + JSON.stringify(ventas));
+      alert("Total impuestos de ventas: " + impuestosVentas(ventas));
+      break;
 
-        case "7":
-          const contrasena = prompt("Ingrese la contraseña a validar:");
-          const resultado = validarContrasena(contrasena);
-          alert("La contraseña es: " + resultado);
-          break;
+    case "7":
+      const contrasena = prompt("Ingrese la contraseña a validar:");
+      const resultado = validarContrasena(contrasena);
+      alert("La contraseña es: " + resultado);
+      break;
 
+    case "8":
+      const puntajes = [85, 90, 78, 92, 88, 76, 95];
 
+      alert("Puntajes registrados: " + JSON.stringify(puntajes));
+      alert("Promedio sin máximo ni mínimo: " + estadisticasPuntaje(puntajes));
+      break;
 
+      
 
 
 
