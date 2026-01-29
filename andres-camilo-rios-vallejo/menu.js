@@ -10,6 +10,7 @@ import { calcularNomina } from './ejercicio9.js'
 import { convertirDivisas } from './ejercicio10.js'
 import { gestionarAula } from './ejercicio11.js'
 import { analizarPalabras } from './ejercicio12.js'
+import { verificarSensores } from './ejercicio13.js'
 
 function ejecutarMenu() {
 
@@ -29,6 +30,7 @@ function ejecutarMenu() {
         menu += "10. Conversor de Divisas con Registro\n";
         menu += "11. Capacidad de Aula\n";
         menu += "12. Análisis de Palabras Prohibidas\n";
+        menu += "13. Alerta de Sensores\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -145,6 +147,17 @@ function ejecutarMenu() {
                 const prohibidas = entradaProhibidas.split(",")
                 const resultado12 = analizarPalabras(texto, prohibidas)
                 alert("CONTEO PALABRAS: \n" + JSON.stringify(resultado12, null, 2))
+                break
+
+            case '13':
+                const entradaTemps = prompt("Ingrese las temperaturas separadas por coma (ej: 30,36,37,38,20)")
+                const arrayStrTemps = entradaTemps.split(",")
+                const temperaturas = []
+                for (let i = 0; i < arrayStrTemps.length; i++) {
+                    temperaturas.push(Number(arrayStrTemps[i]))
+                }
+                const estadoSensor = verificarSensores(temperaturas)
+                alert("ESTADO DEL SENSOR: " + estadoSensor)
                 break
 
             case '0':
