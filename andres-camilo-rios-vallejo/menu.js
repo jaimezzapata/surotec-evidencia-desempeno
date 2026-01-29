@@ -8,6 +8,7 @@ import { validarContrasena } from './ejercicio7.js'
 import { estadisticasPuntaje } from './ejercicio8.js'
 import { calcularNomina } from './ejercicio9.js'
 import { convertirDivisas } from './ejercicio10.js'
+import { gestionarAula } from './ejercicio11.js'
 
 function ejecutarMenu() {
 
@@ -25,6 +26,7 @@ function ejecutarMenu() {
         menu += "8. Estadísticas de Puntaje\n";
         menu += "9. Nómina con Recargos\n";
         menu += "10. Conversor de Divisas con Registro\n";
+        menu += "11. Capacidad de Aula\n";
         menu += "0. Salir\n";
 
         const opcion = prompt(menu);
@@ -121,6 +123,18 @@ function ejecutarMenu() {
                 const destino = prompt("Ingrese moneda destino (COP, USD, EUR)").toUpperCase()
                 const resultado10 = convertirDivisas(montoDivisa, origen, destino)
                 alert("RESULTADO: " + resultado10.valor + "\nCONVERSIONES TOTALES: " + resultado10.totalConversiones)
+                break
+            
+            case '11':
+                const capacidad = parseInt(prompt("Ingrese la capacidad del aula"))
+                const entradaGrupos = prompt("Ingrese los grupos de estudiantes separados por coma (ej: 10,5,3)")
+                const arrayStrGrupos = entradaGrupos.split(",")
+                const grupos = []
+                for (let i = 0; i < arrayStrGrupos.length; i++) {
+                    grupos.push(Number(arrayStrGrupos[i]))
+                }
+                const fuera = gestionarAula(capacidad, grupos)
+                alert("ESTUDIANTES QUE QUEDARON FUERA: " + fuera)
                 break
 
             case '0':
