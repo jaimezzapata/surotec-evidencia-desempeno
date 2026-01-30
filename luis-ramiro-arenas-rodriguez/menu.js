@@ -231,13 +231,25 @@ function ejecutarOpc(opc) {
         { fechaDevolucion: 2, multa: 100000 },
       ];
       const fechaActual = 7;
-      const estadoPrestamo = restriccionBiblioteca (prestamos, fechaActual);
+      const estadoPrestamo = restriccionBiblioteca(prestamos, fechaActual);
       alert("Estado del préstamo: " + estadoPrestamo);
       break;
 
-      
-
-
+    case "19":
+      const destinos = [
+        { nombre: "Tienda A", distancia: 50 },
+        { nombre: "Tienda B", distancia: 80 },
+        { nombre: "Tienda C", distancia: 60 },
+        { nombre: "Tienda D", distancia: 40 },
+        { nombre: "Tienda E", distancia: 30 },
+      ];
+      const destinosPosibles = rutaEntrega(destinos);
+      let mensajeRuta = "Destinos posibles en esta ruta: \n";
+      for (let i = 0; i < destinosPosibles.length; i++) {
+        mensajeRuta += "- " + destinosPosibles[i].nombre + " ("  + destinosPosibles[i].distancia + " km)\n";
+      }
+      alert(mensajeRuta);
+      break;
   }
 }
 
