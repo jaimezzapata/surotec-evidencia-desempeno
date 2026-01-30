@@ -10,6 +10,7 @@ import { calcularNomina } from "./ejercicio9.js";
 import { convertirMoneda } from "./ejercicio10.js";
 import { gestionarAula } from "./ejercicio11.js";
 import { analizarPalabras } from "./ejercicio12.js";
+import { monitorearTemperatura } from "./ejercicio13.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -28,7 +29,7 @@ function ejecutarMenu() {
     menuPrincipal += "10. Conversor de Monedas\n";
     menuPrincipal += "11. Capacidad de Aula\n";
     menuPrincipal += "12. Detector de Palabras Prohibidas\n";
-    menuPrincipal += "13. Ejercicio 13\n";
+    menuPrincipal += "13. Alerta de Sensores\n";
     menuPrincipal += "14. Ejercicio 14\n";
     menuPrincipal += "15. Ejercicio 15\n";
     menuPrincipal += "16. Ejercicio 16\n";
@@ -169,7 +170,7 @@ function ejecutarMenu() {
             alert("Por favor ingrese valores numéricos válidos.");
         }
         break;
-    case "10":
+      case "10":
         const montoDivisa = parseFloat(prompt("Ingrese el monto a convertir:"));
         const monedaOrigen = prompt("Ingrese moneda origen (COP, USD, EUR):");
         const monedaDestino = prompt("Ingrese moneda destino (COP, USD, EUR):");
@@ -202,7 +203,7 @@ function ejecutarMenu() {
 
         alert(`Estudiantes que se quedaron fuera: ${fuera}\n(El grupo de 10 no cabía en los 5 espacios restantes, y bloqueó al siguiente grupo).`);
         break;
-case "12":
+      case "12":
 
         const textoUsuario = "Este es un texto de prueba. A veces la gente es tonta o se comporta como un bobo. No seas BOBO.";
         const malasPalabras = ["tonta", "bobo", "inútil"];
@@ -212,6 +213,19 @@ case "12":
         const resultadoAnalisis = analizarPalabras(textoUsuario, malasPalabras);
 
         alert(`Reporte de Infracciones:\n${JSON.stringify(resultadoAnalisis, null, 2)}`);
+        break;
+
+      case "13":
+        const tempsPeligro = [30, 36, 37, 38, 30]; 
+        
+        const tempsNormal = [30, 40, 40, 34, 40];
+
+        alert("Analizando sensores...");
+
+        const resultadop = monitorearTemperatura(tempsPeligro);
+        const resultadon = monitorearTemperatura(tempsNormal);
+
+        alert(`Prueba 1 [30, 36, 37, 38, 30]:\n🚨 ${resultadop}\n\nPrueba 2 [30, 40, 40, 34, 40]:\n ${resultadon}`);
         break;
 
       default:
