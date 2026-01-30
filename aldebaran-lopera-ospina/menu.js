@@ -246,6 +246,21 @@ function ejecutarMenu() {
 
         alert(reporte);
         break;
+      case "15":
+        const listaTareas = [
+            { descripcion: "Pagar el arriendo", prioridad: "alta", dias: 1 },
+            { descripcion: "Ir al cine", prioridad: "baja", dias: 1 },
+            { descripcion: "Estudiar JS", prioridad: "alta", dias: 5 },
+            { descripcion: "Cita médica", prioridad: "media", dias: 0 },
+            { descripcion: "Entregar proyecto", prioridad: "alta", dias: 0 }
+        ];
+
+        alert("Lista de tareas completa:\n" + JSON.stringify(listaTareas, null, 2));
+
+        const resultadoUrgentes = filtrarTareasUrgentes(listaTareas);
+
+        alert("TAREAS CRÍTICAS (Alta prioridad + < 2 días):\n" + JSON.stringify(resultadoUrgentes, null, 2));
+        break;
 
       default:
         alert("Opción no válida");
