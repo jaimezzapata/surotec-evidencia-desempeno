@@ -1,3 +1,6 @@
+import { ejercicio1 } from "./ejercicio1.js";
+
+
 function ejecutarMenu() {
   let opcion = "";
 

@@ -18,8 +18,15 @@ function calcularCajero(monto) {
   };
 }
 
-function ejercicio1() {
+export function ejercicio1() {
   let monto = Number(prompt("Ingrese el monto a retirar"));
+
   let resultado = calcularCajero(monto);
+
+  if (typeof resultado === "string") {
+    alert(resultado);
+    return;
+  }
+
   alert(JSON.stringify(resultado));
 }
