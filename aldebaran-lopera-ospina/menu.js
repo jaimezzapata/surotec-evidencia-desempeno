@@ -12,6 +12,8 @@ import { gestionarAula } from "./ejercicio11.js";
 import { analizarPalabras } from "./ejercicio12.js";
 import { monitorearTemperatura } from "./ejercicio13.js";
 import { calcularDescuentoLealtad } from "./ejercicio14.js";
+import { filtrarTareasUrgentes } from "./ejercicio15.js";
+import { calcularFacturaAgua } from "./ejercicio16.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -32,8 +34,8 @@ function ejecutarMenu() {
     menuPrincipal += "12. Detector de Palabras Prohibidas\n";
     menuPrincipal += "13. Alerta de Sensores\n";
     menuPrincipal += "14. Descuento por Lealtad\n";
-    menuPrincipal += "15. Ejercicio 15\n";
-    menuPrincipal += "16. Ejercicio 16\n";
+    menuPrincipal += "15. Filtro de Tareas Urgentes\n";
+    menuPrincipal += "16. Liquidación de Servicios (Agua)\n";
     menuPrincipal += "17. Ejercicio 17\n";
     menuPrincipal += "18. Ejercicio 18\n";
     menuPrincipal += "19. Ejercicio 19\n";
@@ -260,6 +262,30 @@ function ejecutarMenu() {
         const resultadoUrgentes = filtrarTareasUrgentes(listaTareas);
 
         alert("TAREAS CRÍTICAS (Alta prioridad + < 2 días):\n" + JSON.stringify(resultadoUrgentes, null, 2));
+        break;
+      case "16":
+        const consumoInput = parseInt(prompt("Ingrese el consumo de agua (m³):"));
+        const estratoInput = parseInt(prompt("Ingrese el estrato (1-6):"));
+
+        if (!isNaN(consumoInput) && !isNaN(estratoInput) && consumoInput >= 0) {
+            
+            const totalPagar = calcularFacturaAgua(consumoInput, estratoInput);
+
+            let msg = `Factura de Agua\n`;
+            msg += `Consumo: ${consumoInput} m³\n`;
+            msg += `Estrato: ${estratoInput}\n`;
+            
+            if (estratoInput === 1) {
+                msg += `(Incluye subsidio del 20%)\n`;
+            }
+            msg += `------------------------\n`;
+            msg += `TOTAL A PAGAR: $${totalPagar}`;
+
+            alert(msg);
+
+        } else {
+            alert("Por favor ingrese valores numéricos válidos.");
+        }
         break;
 
       default:
