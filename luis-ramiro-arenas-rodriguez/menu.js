@@ -209,6 +209,16 @@ function ejecutarOpc(opc) {
         alert ("El valor a pagar es: $" + valorLiquidacion.toFixed(2));
         break;
 
+        case "17":
+          const transacciones = [5000, 20000, 15000, 80000, 300000, 10000, 250000];
+          const sospechosas = monitoreoTransacciones(transacciones);
+          let mensajeTransacciones = "Transacciones sospechosas:\n";
+          for (let i = 0; i < sospechosas.length; i++) {
+            mensajeTransacciones += "Monto: $" + sospechosas[i].monto + " - Estado: " + sospechosas[i].estado + "\n";
+          }
+          alert(mensajeTransacciones);
+          break;
+
 
   }
 }
