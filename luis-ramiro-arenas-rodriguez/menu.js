@@ -146,7 +146,21 @@ function ejecutarOpc(opc) {
       alert("Número de estudiantes que no pudieron entrar al aula: " + estudiantesFuera);
       break; 
       
-      
+      case "12":
+      const textoAnalizar = "Este texto contiene palabras prohibidas como spam y fraude. El spam es molesto.";
+      const palabrasProhibidasArray= ["spam", "fraude", "phishing"];
+      const resultadoBusqueda = busquedaPalabrasProhibidas(textoAnalizar, palabrasProhibidasArray);
+      let mensajeResultado = "Palabras prohibidas encontradas:\n";
+      for (let palabra in resultadoBusqueda) {
+        mensajeResultado += palabra + ": " + resultadoBusqueda[palabra] + "\n";
+      }
+      alert(mensajeResultado);
+      break;
+
+
+
+
+
   }
 }
 
