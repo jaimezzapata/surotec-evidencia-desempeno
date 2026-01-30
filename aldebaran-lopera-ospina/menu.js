@@ -16,6 +16,7 @@ import { filtrarTareasUrgentes } from "./ejercicio15.js";
 import { calcularFacturaAgua } from "./ejercicio16.js";
 import { monitorearTransacciones } from "./ejercicio17.js";
 import { verificarPrestamo } from "./ejercicio18.js";
+import { planificarRuta } from "./ejercicio19.js";
 
 function ejecutarMenu() {
   let salir = false;
@@ -40,7 +41,7 @@ function ejecutarMenu() {
     menuPrincipal += "16. Liquidación de Servicios (Agua)\n";
     menuPrincipal += "17. Monitoreo de Transacciones\n";
     menuPrincipal += "18. Restricción de Biblioteca\n";
-    menuPrincipal += "19. Ejercicio 19\n";
+    menuPrincipal += "19. Plan de Ruta de Entrega\n";
     menuPrincipal += "20. Ejercicio 20\n";
     menuPrincipal += "0. Salir";
 
@@ -325,6 +326,21 @@ function ejecutarMenu() {
         alert(resultadoBiblioteca.mensaje);
         break;
 
+      case "19":
+        const rutaPropuesta = [
+            { nombre: "Cliente A (Centro)", distancia: 40 },
+            { nombre: "Cliente B (Norte)", distancia: 80 },
+            { nombre: "Cliente C (Sur)", distancia: 50 },
+            { nombre: "Cliente D (Pueblo)", distancia: 100 }
+        ];
+
+        alert("Iniciando ruta con 200km de combustible...\nDestinos:\n" + JSON.stringify(rutaPropuesta, null, 2));
+
+        const entregasExitosas = planificarRuta(rutaPropuesta);
+
+        alert(`Ruta Finalizada.\n\nSe lograron visitar estos puntos:\n${JSON.stringify(entregasExitosas)}\n\n(El combustible se agotó antes de llegar al Cliente D).`);
+        break;
+      
       default:
         alert("Opción no válida");
         break;
