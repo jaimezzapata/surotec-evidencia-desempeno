@@ -201,6 +201,15 @@ function ejecutarOpc(opc) {
       }
       alert(mensajeTareas);
       break;
+
+      case "16":
+        const metrosCubicos = 40;
+        const estrato = 1;
+        const valorLiquidacion = liquidacionServicios(metrosCubicos, estrato);
+        alert ("El valor a pagar es: $" + valorLiquidacion.toFixed(2));
+        break;
+
+
   }
 }
 
