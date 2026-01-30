@@ -1,5 +1,6 @@
 import { ejercicio1 } from "./ejercicio1.js";
 import { ejercicio2 } from "./ejercicio2.js";
+import { ejercicio3 } from "./ejercicio3.js";
 
 
 function ejecutarMenu() {
