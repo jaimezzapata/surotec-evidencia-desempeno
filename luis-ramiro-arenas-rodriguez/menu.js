@@ -202,22 +202,40 @@ function ejecutarOpc(opc) {
       alert(mensajeTareas);
       break;
 
-      case "16":
-        const metrosCubicos = 40;
-        const estrato = 1;
-        const valorLiquidacion = liquidacionServicios(metrosCubicos, estrato);
-        alert ("El valor a pagar es: $" + valorLiquidacion.toFixed(2));
-        break;
+    case "16":
+      const metrosCubicos = 40;
+      const estrato = 1;
+      const valorLiquidacion = liquidacionServicios(metrosCubicos, estrato);
+      alert("El valor a pagar es: $" + valorLiquidacion.toFixed(2));
+      break;
 
-        case "17":
-          const transacciones = [5000, 20000, 15000, 80000, 300000, 10000, 250000];
-          const sospechosas = monitoreoTransacciones(transacciones);
-          let mensajeTransacciones = "Transacciones sospechosas:\n";
-          for (let i = 0; i < sospechosas.length; i++) {
-            mensajeTransacciones += "Monto: $" + sospechosas[i].monto + " - Estado: " + sospechosas[i].estado + "\n";
-          }
-          alert(mensajeTransacciones);
-          break;
+    case "17":
+      const transacciones = [5000, 20000, 15000, 80000, 300000, 10000, 250000];
+      const sospechosas = monitoreoTransacciones(transacciones);
+      let mensajeTransacciones = "Transacciones sospechosas:\n";
+      for (let i = 0; i < sospechosas.length; i++) {
+        mensajeTransacciones +=
+          "Monto: $" +
+          sospechosas[i].monto +
+          " - Estado: " +
+          sospechosas[i].estado +
+          "\n";
+      }
+      alert(mensajeTransacciones);
+      break;
+
+    case "18":
+      const prestamos = [
+        { fechaDevolucion: 5, multa: 3000 },
+        { fechaDevolucion: 10, multa: 5000 },
+        { fechaDevolucion: 2, multa: 100000 },
+      ];
+      const fechaActual = 7;
+      const estadoPrestamo = restriccionBiblioteca (prestamos, fechaActual);
+      alert("Estado del préstamo: " + estadoPrestamo);
+      break;
+
+      
 
 
   }
