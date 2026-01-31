@@ -1,4 +1,4 @@
-function filtrarTareasUrgentes(tareas) {
+export function filtrarTareasUrgentes(tareas) {
     let urgentes = [];
 
     for (let i = 0; i < tareas.length; i++) {

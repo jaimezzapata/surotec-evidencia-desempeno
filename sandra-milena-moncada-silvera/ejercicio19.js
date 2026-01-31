@@ -1,4 +1,4 @@
-function planificarRuta(destinos) {
+export function planificarRuta(destinos) {
     let combustible = 200;
     let rutaViable = [];
 

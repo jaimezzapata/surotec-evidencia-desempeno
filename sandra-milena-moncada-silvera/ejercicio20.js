@@ -1,4 +1,4 @@
-function generarCSV(usuarios) {
+export function generarCSV(usuarios) {
     const encabezados = "id,nombre,email"
     
     const filas = usuarios.map(usuario => {

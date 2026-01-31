@@ -1,4 +1,4 @@
-function analizarPalabrasProhibidas(texto, palabrasProhibidas) {
+export function analizarPalabrasProhibidas(texto, palabrasProhibidas) {
     const resultado = {}
     const palabrasTexto = texto.split(' ')
 

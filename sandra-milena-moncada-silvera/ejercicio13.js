@@ -1,4 +1,4 @@
-function verificarTemperaturas(lecturas) {
+export function verificarTemperaturas(lecturas) {
     let consecutivas = 0;
 
     for (let i = 0; i < lecturas.length; i++) {

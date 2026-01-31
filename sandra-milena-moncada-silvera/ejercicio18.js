@@ -1,4 +1,4 @@
-function verificarPrestamo(prestamos) {
+export function verificarPrestamo(prestamos) {
     let multaTotal = 0;
     let tieneRetrasoGrave = false;
 

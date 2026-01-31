@@ -1,4 +1,4 @@
-function calcularEstudiantesFuera(capacidadMax, grupos) {
+export function calcularEstudiantesFuera(capacidadMax, grupos) {
     let capacidadActual = 0;
     let estudiantesFuera = 0;
     let aulaLlena = false;

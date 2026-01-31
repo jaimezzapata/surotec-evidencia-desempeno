@@ -1,4 +1,4 @@
-function monitorearTransacciones(historial) {
+export function monitorearTransacciones(historial) {
     let sospechosas = [];
     let sumaAnteriores = 0;
 

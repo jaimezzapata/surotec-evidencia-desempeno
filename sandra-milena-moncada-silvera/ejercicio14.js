@@ -1,4 +1,4 @@
-function calcularDescuentoLealtad(compras, antiguedad, montoProximaCompra) {
+export function calcularDescuentoLealtad(compras, antiguedad, montoProximaCompra) {
     let sumaTotal = 0;
 
     for (let i = 0; i < compras.length; i++) {

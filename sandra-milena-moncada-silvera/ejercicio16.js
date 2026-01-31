@@ -1,4 +1,4 @@
-function calcularCostoAgua(consumo, estrato) {
+export function calcularCostoAgua(consumo, estrato) {
     let costoTotal = 0;
 
     if (consumo <= 15) {
