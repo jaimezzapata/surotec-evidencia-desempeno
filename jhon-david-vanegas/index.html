@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú Ejercicios JS</title>
+</head>
+<body>
+
+<button onclick="iniciarMenu()">Iniciar menú</button>
+
+<script>
+function iniciarMenu() {
+  let opcion
+  do {
+    opcion = Number(prompt(`
+MENU PRINCIPAL
+1. Cajero
+2. Inventario dinámico
+3. Sistema de becas
+4. Carrito con descuento
+5. Control asistencia
+6. Impuestos de ventas
+7. Validador contraseña
+8. Estadísticas puntaje
+9. Nómina recargos
+10. Conversor moneda
+11. Capacidad aula
+12. Palabras prohibidas
+13. Alerta sensores
+14. Descuento lealtad
+15. Tareas urgentes
+16. Liquidación servicios
+17. Monitoreo transacciones
+18. Restricción biblioteca
+19. Ruta de entrega
+20. Generador CSV
+0. Salir
+    `))
+
+    switch (opcion) {
+      case 1: ejercicio1(); break
+      case 2: ejercicio2(); break
+      case 3: ejercicio3(); break
+      case 4: ejercicio4(); break
+      case 5: ejercicio5(); break
+      case 6: ejercicio6(); break
+      case 7: ejercicio7(); break
+      case 8: ejercicio8(); break
+      case 9: ejercicio9(); break
+      case 10: ejercicio10(); break
+      case 11: ejercicio11(); break
+      case 12: ejercicio12(); break
+      case 13: ejercicio13(); break
+      case 14: ejercicio14(); break
+      case 15: ejercicio15(); break
+      case 16: ejercicio16(); break
+      case 17: ejercicio17(); break
+      case 18: ejercicio18(); break
+      case 19: ejercicio19(); break
+      case 20: ejercicio20(); break
+      case 0: alert('Saliendo'); break
+      default: alert('Opción inválida')
+    }
+  } while (opcion !== 0)
+}
+
+function ejercicio1() {
+  let m = Number(prompt('Monto'))
+  if (m % 10000 !== 0) return alert('Monto inválido')
+  let r = `50k:${Math.floor(m/50000)}`
+  m%=50000
+  r+=`\n20k:${Math.floor(m/20000)}`
+  m%=20000
+  r+=`\n10k:${m/10000}`
+  alert(r)
+}
+
+function ejercicio2() {
+  let n = Number(prompt('Cantidad productos'))
+  let res=[]
+  for(let i=0;i<n;i++){
+    let stock=Number(prompt('Stock'))
+    let precio=Number(prompt('Precio'))
+    if(stock<5) precio*=1.15
+    if(stock>20) precio*=0.9
+    res.push(precio)
+  }
+  alert('Precios finales:\n'+res.join(', '))
+}
+
+function ejercicio3() {
+  let p=Number(prompt('Promedio'))
+  let e=Number(prompt('Edad'))
+  let s=Number(prompt('Estrato'))
+  alert(p>=4.5||(e>18&&p>=4&&s<=2))
+}
+
+function ejercicio4() {
+  let n=Number(prompt('Productos'))
+  let e=[]
+  let t=0
+  for(let i=0;i<n;i++){
+    let c=prompt('Categoría')
+    let p=Number(prompt('Precio'))
+    if(c.toLowerCase()==='electronica') e.push(p)
+    else t+=p
+  }
+  if(e.length>3) e=e.map(x=>x*0.85)
+  t+=e.reduce((a,b)=>a+b,0)
+  alert('Total: '+t)
+}
+
+function ejercicio5() {
+  let n=Number(prompt('Llegadas'))
+  let retrasos=0, multa=0
+  for(let i=0;i<n;i++){
+    let [h,m]=prompt('Hora (HH:MM)').split(':').map(Number)
+    let min=h*60+m-480
+    if(min>0){ multa+=min*2; if(min>15) retrasos++ }
+  }
+  alert(retrasos>2?'Suspendido':'Multa $'+multa)
+}
+
+function ejercicio6() {
+  let n=Number(prompt('Ventas'))
+  let total=0
+  for(let i=0;i<n;i++){
+    let v=Number(prompt('Venta'))
+    let iva=v*0.19
+    if(v>500000) iva+=v*0.04
+    total+=iva
+  }
+  alert('Impuestos: '+total)
+}
+
+function ejercicio7() {
+  let ok=false
+  while(!ok){
+    let p=prompt('Contraseña')
+    let n=false,e=false
+    for(let c of p){
+      if(!isNaN(c)) n=true
+      if('!@#$%^&*'.includes(c)) e=true
+    }
+    ok=p.length>=8&&n&&e
+    alert(ok?'Segura':'Insegura')
+  }
+}
+
+function ejercicio8() {
+  let arr=prompt('Números').split(',').map(Number)
+  let max=Math.max(...arr)
+  let min=Math.min(...arr)
+  let prom=arr.filter(x=>x!==max&&x!==min)
+    .reduce((a,b)=>a+b,0)/(arr.length-2)
+  alert(`Max:${max}\nMin:${min}\nProm:${prom}`)
+}
+
+function ejercicio9() {
+  let h=Number(prompt('Horas'))
+  let v=Number(prompt('Valor hora'))
+  let s= h<=40?h*v:
+    h<=50?40*v+(h-40)*v*1.5:
+    40*v+10*v*1.5+(h-50)*v*2
+  alert('Salario '+s)
+}
+
+let cont=0
+function ejercicio10() {
+  cont++
+  alert('Conversión #' + cont)
+}
+
+function ejercicio11() {
+  let cap=Number(prompt('Capacidad'))
+  let grupos=prompt('Grupos').split(',').map(Number)
+  let fuera=0
+  for(let g of grupos){
+    if(cap>=g) cap-=g
+    else fuera+=g
+  }
+  alert('Fuera: '+fuera)
+}
+
+function ejercicio12() {
+  let t=prompt('Texto')
+  let p=prompt('Prohibidas').split(',')
+  let r={}
+  for(let w of p){
+    r[w]=(t.match(new RegExp(w,'gi'))||[]).length
+  }
+  alert(JSON.stringify(r))
+}
+
+function ejercicio13() {
+  let a=prompt('Temperaturas').split(',').map(Number)
+  let c=0
+  for(let t of a){
+    c=t>35?c+1:0
+    if(c===3) return alert('Alarma')
+  }
+  alert('Estado normal')
+}
+
+function ejercicio14() {
+  let c=prompt('Compras').split(',').map(Number)
+  let a=Number(prompt('Años'))
+  let p=c.reduce((x,y)=>x+y)/c.length
+  alert(p>100000&&a>2?'25%':'Sin descuento')
+}
+
+function ejercicio15() {
+  let n=Number(prompt('Tareas'))
+  let r=[]
+  for(let i=0;i<n;i++){
+    let pr=prompt('Prioridad')
+    let d=Number(prompt('Días'))
+    if(pr==='alta'&&d<2) r.push(i+1)
+  }
+  alert('Urgentes: '+r.join(','))
+}
+
+function ejercicio16() {
+  let c=Number(prompt('Consumo'))
+  let e=Number(prompt('Estrato'))
+  let t=c<=15?c*1000:
+    c<=30?15000+(c-15)*1500:
+    15000+22500+(c-30)*2500
+  if(e===1) t*=0.8
+  alert('Total '+t)
+}
+
+function ejercicio17() {
+  let a=prompt('Transacciones').split(',').map(Number)
+  let s=[]
+  for(let i=1;i<a.length;i++){
+    let p=a.slice(0,i).reduce((x,y)=>x+y)/i
+    if(a[i]>p*4) s.push(a[i])
+  }
+  alert('Sospechosas: '+s.join(','))
+}
+
+function ejercicio18() {
+  let n=Number(prompt('Préstamos'))
+  let multa=0, retraso=false
+  for(let i=0;i<n;i++){
+    multa+=Number(prompt('Multa'))
+    if(Number(prompt('Días retraso'))>10) retraso=true
+  }
+  alert(multa>10000||retraso?'Denegado':'Permitido')
+}
+
+function ejercicio19() {
+  let km=200
+  let d=prompt('Distancias').split(',').map(Number)
+  let r=[]
+  for(let x of d){
+    if(km>=x){km-=x;r.push(x)} else break
+  }
+  alert('Rutas: '+r.join(','))
+}
+
+function ejercicio20() {
+  let n=Number(prompt('Usuarios'))
+  let csv='id,nombre,email\n'
+  for(let i=0;i<n;i++){
+    csv+=`${prompt('id')},${prompt('nombre')},${prompt('email')}\n`
+  }
+  alert(csv)
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
