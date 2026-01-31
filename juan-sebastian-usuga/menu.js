@@ -8,6 +8,7 @@ import { ejercicio7 } from "./ejercicio7.js";
 import { ejercicio8 } from "./ejercicio8.js";
 import { ejercicio9 } from "./ejercicio9.js";
 import { ejercicio10 } from "./ejercicio10.js";
+import { ejercicio11 } from "./ejercicio11.js";
 
 function ejecutarMenu() {
   let opcion = "";
