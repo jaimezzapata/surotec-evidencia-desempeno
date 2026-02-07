@@ -1,4 +1,4 @@
-co# Taller de Evaluación: Lógica de Programación y Flujo de Trabajo con Git
+# Taller de Evaluación: Lógica de Programación y Flujo de Trabajo con Git
 
 Este documento contiene las instrucciones y los ejercicios para la evaluación de lógica de programación utilizando JavaScript. Se evaluará tanto la resolución de los problemas como el cumplimiento estricto del flujo de trabajo en Git.
 
